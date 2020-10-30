@@ -5,7 +5,7 @@
 <div align="center">
 
 ![Build Workflow](https://github.com/Fastify-Resty/fastify-resty/workflows/Build%20Workflow/badge.svg?branch=main)
-[![codecov](https://codecov.io/gh/Fastify-Resty/fastify-resty/branch/gh-images/graph/badge.svg?token=R11QLZFPCJ)](undefined)
+[![codecov](https://codecov.io/gh/Fastify-Resty/fastify-resty/branch/main/graph/badge.svg?token=R11QLZFPCJ)](undefined)
 [![Known Vulnerabilities](https://snyk.io/test/github/Fastify-Resty/fastify-resty/badge.svg)](https://snyk.io/test/github/Fastify-Resty/fastify-resty)
 
 </div>
@@ -13,8 +13,8 @@
 <div align="center">
 
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
-[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Fastify-Resty/fastify-resty/graphs/commit-activity)
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
 </div>
 
@@ -131,6 +131,6 @@ main();
 Contributors are welcome, please fork and send pull requests! If you find a bug or have any ideas on how to improve this project please submit an issue.
 
 ## License
-[MIT License](https://github.com/Fastify-Resty/fastify-resty/blob/main/LICENSE)
+[MIT License](https://github.com/Fastify-Resty/fastify-resty/blob/main/LICENSE.md)
 
 Icons made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>

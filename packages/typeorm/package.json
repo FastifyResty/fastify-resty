@@ -1,0 +1,49 @@
+{
+  "name": "@fastify-resty/typeorm",
+  "version": "0.0.0",
+  "description": "Fastify Resty TypeORM connector",
+  "keywords": [
+    "fastify",
+    "typeorm",
+    "database",
+    "decorators",
+    "json-schema"
+  ],
+  "author": {
+    "name": "Demidovich Daniil",
+    "email": "demidovich.daniil@gmail.com"
+  },
+  "homepage": "https://github.com/Fastify-Resty/fastify-resty",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "CHANGELOG.md",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">= 10.16.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Fastify-Resty/fastify-resty",
+    "directory": "packages/typeorm"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --verbose",
+    "coverage": "jest --collect-coverage"
+  },
+  "dependencies": {
+    "@fastify-resty/core": "^0.0.0",
+    "fastify": "^3.7.0",
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "typeorm": "^0.2.28"
+  }
+}

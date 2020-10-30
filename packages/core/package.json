@@ -1,0 +1,48 @@
+{
+  "name": "@fastify-resty/core",
+  "version": "0.0.0",
+  "description": "Fastify Resty API Framework core functionality",
+  "keywords": [
+    "fastify",
+    "rest",
+    "json-schema",
+    "decorators",
+    "api",
+    "framework"
+  ],
+  "author": {
+    "name": "Demidovich Daniil",
+    "email": "demidovich.daniil@gmail.com"
+  },
+  "homepage": "https://github.com/Fastify-Resty/fastify-resty",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "CHANGELOG.md",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">= 10.16.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Fastify-Resty/fastify-resty",
+    "directory": "packages/core"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --verbose",
+    "coverage": "jest --collect-coverage"
+  },
+  "dependencies": {
+    "fastify": "^3.3.0",
+    "http-errors": "^1.8.0",
+    "qs": "^6.9.4",
+    "reflect-metadata": "^0.1.13"
+  }
+}

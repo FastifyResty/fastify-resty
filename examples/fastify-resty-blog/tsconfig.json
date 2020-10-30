@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+		"module": "commonjs",
+		"target": "es2017",
+    "emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"resolveJsonModule": true,
+    "outDir": "./dist"
+  },
+  "include": ["src/**/*", "ormconfig.json"]
+}

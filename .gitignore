@@ -1,0 +1,13 @@
+.npmrc
+node_modules/
+.DS_Store
+*.log
+*.cache
+.idea/
+.vscode/
+coverage
+build/
+dist/
+tmp/
+temp/
+*.sql

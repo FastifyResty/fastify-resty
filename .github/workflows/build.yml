@@ -1,0 +1,89 @@
+name: Build Workflow
+
+on:
+  push:
+    paths-ignore:
+      - '*.md'
+      - 'examples/**'
+
+  pull_request:
+    paths-ignore:
+      - 'docs/**'
+      - '*.md'
+
+env:
+  CI: true
+
+jobs:
+  build_and_test:
+    name: Build and test
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-${{ matrix.node-version }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        run: yarn install --frozen-lock-file
+
+      - name: Build packages and examples
+        run: yarn build
+
+      - name: Run tests
+        run: yarn test
+
+      - name: Upload coverage report
+        run: bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
+
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+
+    if: ${{ github.ref == 'refs/heads/main' }}
+    needs: build_and_test
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-12.x-modules-${{ hashFiles('**/yarn.lock') }}
+          
+      - name: Install dependencies
+        run: yarn install --frozen-lock-file
+
+      - name: Build packages and examples
+        run: yarn build
+
+      # Used Github Actions Bot icon from https://api.github.com/users/github-actions%5Bbot%5D
+      - name: Semantic version bump
+        run: |
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git checkout --force
+          yarn semantic-bump
+
+      # - name: Publish
+      #   run: |
+      #     echo -e "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}\nregistry=https://registry.npmjs.org/\nalways-auth=true\nscope=@fastify-resty" > .npmrc
+      #     yarn release
+      #   env:
+      #     NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

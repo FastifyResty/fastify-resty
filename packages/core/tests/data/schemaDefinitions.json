@@ -1,0 +1,308 @@
+{
+  "definitions": {
+    "entity": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "string": {
+          "type": "string"
+        },
+        "boolean": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "required": [
+        "id",
+        "string",
+        "boolean"
+      ]
+    },
+    "query": {
+      "type": "object",
+      "properties": {
+        "$or": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/query"
+          }
+        },
+        "id": {
+          "type": [
+            "string",
+            "number",
+            "object"
+          ],
+          "properties": {
+            "$eq": {
+              "type": "number"
+            },
+            "$neq": {
+              "type": "number"
+            },
+            "$gt": {
+              "type": "number"
+            },
+            "$gte": {
+              "type": "number"
+            },
+            "$lt": {
+              "type": "number"
+            },
+            "$lte": {
+              "type": "number"
+            },
+            "$like": {
+              "type": "string"
+            },
+            "$nlike": {
+              "type": "string"
+            },
+            "$ilike": {
+              "type": "string"
+            },
+            "$nilike": {
+              "type": "string"
+            },
+            "$regex": {
+              "type": "string"
+            },
+            "$nregex": {
+              "type": "string"
+            },
+            "$in": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "$nin": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "$between": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            },
+            "$nbetween": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            }
+          }
+        },
+        "string": {
+          "type": [
+            "string",
+            "number",
+            "object"
+          ],
+          "properties": {
+            "$eq": {
+              "type": "string"
+            },
+            "$neq": {
+              "type": "string"
+            },
+            "$gt": {
+              "type": "string"
+            },
+            "$gte": {
+              "type": "string"
+            },
+            "$lt": {
+              "type": "string"
+            },
+            "$lte": {
+              "type": "string"
+            },
+            "$like": {
+              "type": "string"
+            },
+            "$nlike": {
+              "type": "string"
+            },
+            "$ilike": {
+              "type": "string"
+            },
+            "$nilike": {
+              "type": "string"
+            },
+            "$regex": {
+              "type": "string"
+            },
+            "$nregex": {
+              "type": "string"
+            },
+            "$in": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "$nin": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "$between": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "$nbetween": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        "boolean": {
+          "type": [
+            "string",
+            "number",
+            "object"
+          ],
+          "properties": {
+            "$eq": {
+              "type": [
+                "number",
+                "string"
+              ]
+            },
+            "$neq": {
+              "type": [
+                "number",
+                "string"
+              ]
+            },
+            "$gt": {
+              "type": [
+                "number",
+                "string"
+              ]
+            },
+            "$gte": {
+              "type": [
+                "number",
+                "string"
+              ]
+            },
+            "$lt": {
+              "type": [
+                "number",
+                "string"
+              ]
+            },
+            "$lte": {
+              "type": [
+                "number",
+                "string"
+              ]
+            },
+            "$like": {
+              "type": "string"
+            },
+            "$nlike": {
+              "type": "string"
+            },
+            "$ilike": {
+              "type": "string"
+            },
+            "$nilike": {
+              "type": "string"
+            },
+            "$regex": {
+              "type": "string"
+            },
+            "$nregex": {
+              "type": "string"
+            },
+            "$in": {
+              "type": "array",
+              "items": {
+                "type": [
+                  "number",
+                  "string"
+                ]
+              }
+            },
+            "$nin": {
+              "type": "array",
+              "items": {
+                "type": [
+                  "number",
+                  "string"
+                ]
+              }
+            },
+            "$between": {
+              "type": "array",
+              "items": [
+                {
+                  "type": [
+                    "number",
+                    "string"
+                  ]
+                },
+                {
+                  "type": [
+                    "number",
+                    "string"
+                  ]
+                }
+              ]
+            },
+            "$nbetween": {
+              "type": "array",
+              "items": [
+                {
+                  "type": [
+                    "number",
+                    "string"
+                  ]
+                },
+                {
+                  "type": [
+                    "number",
+                    "string"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

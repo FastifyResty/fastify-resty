@@ -1,0 +1,62 @@
+{
+  "name": "fastify-resty",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "examples/*"
+    ],
+    "nohoist": [
+      "**/fastify-resty-blog",
+      "**/fastify-resty-blog/**",
+      "**/fastify-resty-quickstart",
+      "**/fastify-resty-quickstart/**"
+    ]
+  },
+  "scripts": {
+    "build": "lerna run build --ignore=@fastify-resty/core",
+    "prebuild": "lerna run build --scope=@fastify-resty/core",
+    "test": "jest",
+    "lint": "eslint .",
+    "semantic-bump": "lerna version --conventional-commits --no-private -y",
+    "release": "lerna publish from-package -y"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@types/http-errors": "^1.8.0",
+    "@types/jest": "^26.0.14",
+    "@types/json-schema": "^7.0.6",
+    "@types/lodash": "^4.14.159",
+    "@types/node": "^8.0.29",
+    "@types/qs": "^6.9.4",
+    "@typescript-eslint/eslint-plugin": "^3.6.1",
+    "@typescript-eslint/parser": "^3.6.1",
+    "eslint": "^7.5.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "husky": "^4.3.0",
+    "jest": "^26.4.2",
+    "lerna": "^3.22.1",
+    "nodemon": "^2.0.4",
+    "npm-run-all": "^4.1.5",
+    "sqlite3": "^5.0.0",
+    "supertest": "^5.0.0",
+    "ts-jest": "^26.4.0",
+    "ts-node": "3.3.0",
+    "ts-node-dev": "^1.0.0-pre.52",
+    "typescript": "^3.9.7"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "engines": {
+    "node": ">= 10.16.0",
+    "yarn": "^1.0.0"
+  }
+}

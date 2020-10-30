@@ -1,0 +1,12 @@
+{
+  "packages": ["packages/*"],
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "version": "independent",
+  "command": {
+    "version": {
+      "allowBranch": "master",
+      "message": "chore(release): publish :tada:"
+    }
+  }
+}

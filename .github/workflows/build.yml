@@ -79,16 +79,15 @@ jobs:
       - name: Build packages and examples
         run: yarn build
 
-      # Used Github Actions Bot icon from https://api.github.com/users/github-actions%5Bbot%5D
       - name: Semantic version bump
         run: |
           git config --global user.email "demidovich.daniil@gmail.com"
           git config --global user.name "DanilaFadeev"
           yarn semantic-bump
 
-      # - name: Publish
-      #   run: |
-      #     echo -e "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}\nregistry=https://registry.npmjs.org/\nalways-auth=true\nscope=@fastify-resty" > .npmrc
-      #     yarn release
-      #   env:
-      #     NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish
+        run: |
+          echo -e "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}\nregistry=https://registry.npmjs.org/\nalways-auth=true\nscope=@fastify-resty" > .npmrc
+          yarn release
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

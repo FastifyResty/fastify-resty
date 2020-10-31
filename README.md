@@ -37,6 +37,20 @@ If you find this useful, please don't forget to star :star:&nbsp; the repo, as t
 - **Fastify compatible** - Built with [Fastify](https://www.fastify.io/) and supports all its features and plugins
 - **ASAP** - Which means *as simple as possible* for us
 
+## Install :pushpin:
+
+**Using Yarn:**
+
+```sh
+yarn add fastify-resty@core fastify
+```
+
+**Using NPM:**
+
+```sh
+npm install fastify-resty@core fastify
+```
+
 ## Usage :rocket:
 
 ##### TypeORM Entity (author.entity.ts):

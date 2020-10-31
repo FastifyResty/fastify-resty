@@ -76,8 +76,8 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lock-file --check-files
 
-      - name: Build packages and examples
-        run: yarn build
+      - name: Build packages
+        run: yarn build --scope @fastify-resty/*
 
       - name: Semantic version bump
         run: |

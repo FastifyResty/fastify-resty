@@ -42,13 +42,13 @@ If you find this useful, please don't forget to star :star:&nbsp; the repo, as t
 **Using Yarn:**
 
 ```sh
-yarn add fastify-resty@core fastify
+yarn add @fastify-resty/core fastify
 ```
 
 **Using NPM:**
 
 ```sh
-npm install fastify-resty@core fastify
+npm install @fastify-resty/core fastify
 ```
 
 ## Usage :rocket:

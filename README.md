@@ -7,6 +7,7 @@
 ![Build Workflow](https://github.com/Fastify-Resty/fastify-resty/workflows/Build%20Workflow/badge.svg?branch=main)
 [![codecov](https://codecov.io/gh/Fastify-Resty/fastify-resty/branch/main/graph/badge.svg?token=R11QLZFPCJ)](undefined)
 [![Known Vulnerabilities](https://snyk.io/test/github/Fastify-Resty/fastify-resty/badge.svg)](https://snyk.io/test/github/Fastify-Resty/fastify-resty)
+[![devDependencies Status](https://david-dm.org/Fastify-resty/fastify-resty/dev-status.svg)](https://david-dm.org/Fastify-resty/fastify-resty?type=dev)
 
 </div>
 

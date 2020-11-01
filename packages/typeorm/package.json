@@ -1,6 +1,6 @@
 {
   "name": "@fastify-resty/typeorm",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Fastify Resty TypeORM connector",
   "keywords": [
     "fastify",
@@ -39,7 +39,7 @@
     "coverage": "jest --collect-coverage"
   },
   "dependencies": {
-    "@fastify-resty/core": "^0.1.0",
+    "@fastify-resty/core": "^0.1.1",
     "fastify": "^3.7.0",
     "lodash": "^4.17.20",
     "reflect-metadata": "^0.1.13"

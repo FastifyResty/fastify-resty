@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"target": "es6",
+		"target": "ES6",
 		"module": "commonjs",
 		"moduleResolution": "node",
 		"allowSyntheticDefaultImports": true,
@@ -21,7 +21,7 @@
 		"emitDecoratorMetadata": true,
 		"esModuleInterop": true,
 		"removeComments": true,
-		"lib": ["es7"],
+		"lib": ["ES2020"],
 		"resolveJsonModule": true
 	},
 	"exclude": [

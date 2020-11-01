@@ -1,6 +1,6 @@
 type ControllerHooks = 'onRequest' | 'preParsing' | 'preValidation' | 'preHandler' | 'preSerialization' | 'onError' | 'onSend' | 'onResponse' | 'onTimeout';
 
-function hookFactory(event: ControllerHooks): MethodDecorator {
+function hookFactory(event: ControllerHooks) {
   return function(target: object, propertyKey: string | symbol): void {
     Reflect.defineMetadata('fastify-resty:hook', { event }, target, propertyKey);
 

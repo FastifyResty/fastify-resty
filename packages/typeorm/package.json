@@ -41,6 +41,7 @@
   "dependencies": {
     "@fastify-resty/core": "^0.1.0",
     "fastify": "^3.7.0",
+    "lodash": "^4.17.20",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {

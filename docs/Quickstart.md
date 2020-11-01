@@ -59,6 +59,7 @@ create a `tsconfig.json` at the project root directory.
 ```json
 {
   "compilerOptions": {
+    "target": "ES6",
     "module": "commonjs",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

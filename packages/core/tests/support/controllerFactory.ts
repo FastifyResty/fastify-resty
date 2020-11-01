@@ -24,12 +24,12 @@ export const controllerFactory = (
     TestController.prototype[`${methodConfig.method}_${index}`] = methodConfig.handler;
     METHODS[methodConfig.method]
       (methodConfig.route, methodConfig.options as any || {})
-      (TestController.prototype, `${methodConfig.method}_${index}`, {});
+      (TestController.prototype, `${methodConfig.method}_${index}`);
   });
 
   hooks.forEach((hookConfig, index) => {
     TestController.prototype[`${hookConfig.hook}_${index}`] = hookConfig.handler;
-    HOOKS[hookConfig.hook](TestController.prototype, `${hookConfig.hook}_${index}`, {});
+    HOOKS[hookConfig.hook](TestController.prototype, `${hookConfig.hook}_${index}`);
   });
 
   return TestController;

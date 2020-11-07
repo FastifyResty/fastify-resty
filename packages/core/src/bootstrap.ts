@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import qs from 'qs';
+import Injector from './injector';
 import { createAppConfig } from './configurations';
 import type { FastifyInstance } from 'fastify';
 import type { Constructable, IApplicationOptions } from './types';
@@ -46,6 +47,8 @@ export async function bootstrap(fastifyInstance: FastifyInstance, options: IAppl
     config.controllers.forEach(controller => controllers.add(controller));
   }
 
+  const injector = new Injector();
+
   // initialize controllers
   const controllersInstances = Array.from(controllers)
     .filter(controller => controller?.prototype && Reflect.hasMetadata('fastify-resty:controller', controller.prototype))
@@ -53,8 +56,9 @@ export async function bootstrap(fastifyInstance: FastifyInstance, options: IAppl
       let controllerInstance;
       const controllerMetadata = Reflect.getMetadata('fastify-resty:controller', controller.prototype);
 
-      await fastifyInstance.register(async instance => {
-        controllerInstance = Reflect.construct(controller, [instance, config.defaults]);
+      await fastifyInstance.register(async instance => { // TODO move to entity controller
+        controllerInstance = injector.getInstance(controller);
+        controllerInstance.initialize(instance, config.defaults);
 
         // add schema definitions to global scope
         if (Reflect.hasMetadata('fastify-resty:definitions', controllerInstance)) {

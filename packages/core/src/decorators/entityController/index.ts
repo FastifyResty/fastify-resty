@@ -15,25 +15,26 @@ export function EntityController<E extends Object>(Entity: E, route?: string, op
     const handlersSet = Reflect.getMetadata('fastify-resty:handlers', origin.prototype) || new Set();
     const hooksSet = Reflect.getMetadata('fastify-resty:hooks', origin.prototype) || new Set();
 
-    const constructorFn = function(...args: [FastifyInstance & { Model?: new(...args) => IBaseModel<E> }, IControllerConfig, ...any[]]) {
-      const [fastifyInstance, appDefaults] = args;
-
+    (origin as any).prototype.initialize = function(fastifyInstance: FastifyInstance & { Model?: new(...args) => IBaseModel<E> }, defaultConfig: IControllerConfig) { // TODO make as symbol
       if (!fastifyInstance.Model && typeof fastifyInstance !== 'function') {
         throw new Error('Database connector is not bootstrapped! Missing Model class');
       }
 
-      const controllerInstance = Reflect.construct(origin, args);
+      if (!fastifyInstance.Model && typeof fastifyInstance !== 'function') {
+        throw new Error('Database connector is not bootstrapped! Missing Model class');
+      }
   
-      controllerInstance.instance = fastifyInstance;
-      controllerInstance.config = createControllerConfig(options, appDefaults);
-      controllerInstance.model = new fastifyInstance.Model(Entity, options);
+      this.instance = fastifyInstance;
+      this.config = createControllerConfig(options, defaultConfig);
+      this.model = new fastifyInstance.Model(); // TODO: find a way to share with DI
+      this.model.EntityClass = Entity;
 
-      const { jsonSchema } = controllerInstance.model;
+      const { jsonSchema } = this.model;
 
       const definitions = schemaDefinitions(jsonSchema);
       Reflect.defineMetadata('fastify-resty:definitions', definitions, origin.prototype);
 
-      const routeSchemas = baseSchema(`/${controllerInstance.model.name}.json`, jsonSchema);
+      const routeSchemas = baseSchema(`/${this.model.name}.json`, jsonSchema);
       const routeOptions = getRoutes(routeSchemas);
 
       // register base entity methods
@@ -48,7 +49,7 @@ export function EntityController<E extends Object>(Entity: E, route?: string, op
       });
 
       // register base entity hooks
-      if (!controllerInstance.config.allowMulti || Array.isArray(controllerInstance.config.methods)) {
+      if (!this.config.allowMulti || Array.isArray(this.config.methods)) {
         const hookHandlerKey = 'validateAllowedMethods';
         
         Reflect.defineProperty(origin.prototype, hookHandlerKey, {
@@ -59,16 +60,12 @@ export function EntityController<E extends Object>(Entity: E, route?: string, op
         hooksSet.add(hookHandlerKey);
         Reflect.defineMetadata('fastify-resty:hook', { event: 'onRequest' }, origin.prototype, hookHandlerKey);
       }
-
-      return controllerInstance;
-    };
-
-    constructorFn.prototype = origin.prototype;
+    }
 
     Reflect.defineMetadata('fastify-resty:controller', { Entity, route }, origin.prototype);
     Reflect.defineMetadata('fastify-resty:handlers', handlersSet, origin.prototype);
     Reflect.defineMetadata('fastify-resty:hooks', hooksSet, origin.prototype);
 
-    return constructorFn;
+    return origin;
   }
 }

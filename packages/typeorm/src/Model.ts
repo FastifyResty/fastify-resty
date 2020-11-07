@@ -6,12 +6,7 @@ import type { JSONSchema7 } from 'json-schema';
 import type { ObjectType, Connection } from 'typeorm';
 
 export class Model<E extends object = any> implements IBaseModel<E> {
-  constructor(private readonly EntityClass: ObjectType<E>, options: IModelOptions = {}) {
-    this.config = {
-      id: options.id || 'id',
-      softDelete: options.softDelete !== undefined ? options.softDelete : false // TODO: TBD
-    };
-  }
+  private EntityClass;
 
   static connection: Connection;
 

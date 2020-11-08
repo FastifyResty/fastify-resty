@@ -5,5 +5,5 @@
     "sourceMap": false,
     "strict": true
   },
-  "include": ["src", "../service.ts"]
+  "include": ["src"]
 }

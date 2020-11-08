@@ -14,6 +14,7 @@ export async function bootstrap(fastifyInstance: FastifyInstance, options: IAppl
   const config = createAppConfig(options);
   const controllers = new Set<Constructable>();
 
+  const injector = new Injector(fastifyInstance);
   fastifyInstance.decorate('fastify-resty-config', config);
 
   // add custom query parser for each request (qs)
@@ -46,8 +47,6 @@ export async function bootstrap(fastifyInstance: FastifyInstance, options: IAppl
   if (config.controllers) {
     config.controllers.forEach(controller => controllers.add(controller));
   }
-
-  const injector = new Injector();
 
   // initialize controllers
   const controllersInstances = Array.from(controllers)

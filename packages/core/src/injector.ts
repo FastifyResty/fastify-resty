@@ -1,18 +1,18 @@
-import { FastifyInstance } from 'fastify';
+import { FastifyToken } from './symbols';
+import type { FastifyInstance } from 'fastify';
 import type { Constructable } from './types';
-
-const fastifyInstanceToken = 'FASTIFY';
 
 type IInjectToken = string | Symbol;
 
-export default class Injector {
+/* global service tokens map */
+export const serviceTokens: Map<IInjectToken, Constructable> = new Map();
 
-  static readonly serviceTokens: Map<IInjectToken, Constructable> = new Map();
+export default class Injector {
 
   private readonly injectableMap: Map<Constructable | IInjectToken, any> = new Map();
 
   constructor(fastifyInstance: FastifyInstance) {
-    this.injectableMap.set(fastifyInstanceToken, fastifyInstance);
+    this.injectableMap.set(FastifyToken, fastifyInstance);
   }
 
   private resolve(constructor: Constructable | IInjectToken) {
@@ -21,20 +21,18 @@ export default class Injector {
 
     if (typeof constructor !== 'function') { // TODO check if constructable
       // service token
-      if (Injector.serviceTokens.has(constructor)) {
-        const serviceConstructor = Injector.serviceTokens.get(constructor);
+      if (serviceTokens.has(constructor)) {
+        const serviceConstructor = serviceTokens.get(constructor);
         const serviceInstance = this.resolve(serviceConstructor);
 
         this.injectableMap.set(serviceConstructor, serviceInstance);
         this.injectableMap.set(constructor, serviceInstance);
 
-        Injector.serviceTokens.delete(constructor);
-
         return serviceInstance;
       }
 
       // fastify decorated value
-      const fastifyInstance = this.injectableMap.get(fastifyInstanceToken);
+      const fastifyInstance = this.injectableMap.get(FastifyToken);
       return fastifyInstance[constructor.toString()]; // TODO get by Symbol
     }
 

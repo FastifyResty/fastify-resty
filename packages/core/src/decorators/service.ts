@@ -1,9 +1,9 @@
-import Injector from '../injector';
+import { serviceTokens } from '../injector';
 
 export function Service(token?: string | Symbol) {
   return function(target): void {
-    if (typeof token !== 'undefined') {
-      Injector.serviceTokens.set(token, target);
+    if (typeof token === 'string' || typeof token === 'symbol') {
+      serviceTokens.set(token, target);
     }
   }
 }

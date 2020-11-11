@@ -24,7 +24,7 @@ export function EntityController<E extends Object>(Entity: E, route?: string, op
         throw new Error('Database connector is not bootstrapped! Missing Model class');
       }
   
-      this.instance = fastifyInstance;
+      this.instance = fastifyInstance; // TODO: not needed
       this.config = createControllerConfig(options, defaultConfig);
       this.model = new fastifyInstance.Model(); // TODO: find a way to share with DI
       this.model.EntityClass = Entity;

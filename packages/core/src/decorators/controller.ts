@@ -1,22 +1,7 @@
-import type { FastifyInstance } from 'fastify';
+import type { Constructable } from '../types';
 
 export function Controller(route?: string): any {
-  return function<T extends { new (...args: any[]): {} }>(target: T) {
-    const origin = target;
-
-    const constructorFn = function(...args: [FastifyInstance, ...any[]]) {
-      const controllerInstance = Reflect.construct(origin, args);
-      controllerInstance.instance = args[0];
-
-      controllerInstance.prototype = origin.prototype;
-
-      return controllerInstance;
-    };
-
-    constructorFn.prototype = origin.prototype;
-
-    Reflect.defineMetadata('fastify-resty:controller', { route }, origin.prototype);
-
-    return constructorFn;
+  return function<T extends Constructable>(target: T) {
+    Reflect.defineMetadata('fastify-resty:controller', { route }, target.prototype);
   }
 }

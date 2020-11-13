@@ -1,8 +1,5 @@
 import { FastifyToken } from './symbols';
-import type { FastifyInstance } from 'fastify';
-import type { Constructable } from './types';
-
-type IInjectToken = string | Symbol;
+import type { Constructable, IInjectToken } from './types';
 
 /* global service tokens map */
 export const serviceTokens: Map<IInjectToken, Constructable> = new Map();
@@ -10,10 +7,6 @@ export const serviceTokens: Map<IInjectToken, Constructable> = new Map();
 export default class Injector {
 
   private readonly injectableMap: Map<Constructable | IInjectToken, any> = new Map();
-
-  constructor(fastifyInstance: FastifyInstance) {
-    this.injectableMap.set(FastifyToken, fastifyInstance);
-  }
 
   private resolve(constructor: Constructable | IInjectToken) {
     let currentInstance = this.injectableMap.get(constructor);
@@ -33,7 +26,7 @@ export default class Injector {
 
       // fastify decorated value
       const fastifyInstance = this.injectableMap.get(FastifyToken);
-      return fastifyInstance[constructor.toString()]; // TODO get by Symbol
+      return fastifyInstance[constructor];
     }
 
     const paramTypes: Constructable[] = Reflect.getMetadata('design:paramtypes', constructor) || [];
@@ -62,5 +55,9 @@ export default class Injector {
 
   public getInstance<T>(constructor: Constructable<T>): T {
     return this.resolve(constructor);
+  }
+
+  public registerInstance(key: Constructable | IInjectToken, value: any): void {
+    this.injectableMap.set(key, value);
   }
 }

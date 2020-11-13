@@ -1,10 +1,10 @@
 import type { Connection } from 'typeorm';
-import { Model } from '../../src/Model';
+import { BaseModel } from '../../src/BaseModel';
 
 class Entity {}
 
 describe('Model', () => {
-  const model = new Model(Entity);
+  const model = new BaseModel(Entity);
   const mocks: Record<string, jest.Mock> = {};
 
   beforeAll(() => {
@@ -35,7 +35,7 @@ describe('Model', () => {
   });
 
   test('Should return model name and jsonSchema', () => {
-    Model.connection = { getMetadata: mocks.getMetadataMock } as unknown as Connection;
+    BaseModel.connection = { getMetadata: mocks.getMetadataMock } as unknown as Connection;
     
     expect(model.jsonSchema).toBeDefined();
     expect(mocks.getMetadataMock).toHaveBeenCalled();

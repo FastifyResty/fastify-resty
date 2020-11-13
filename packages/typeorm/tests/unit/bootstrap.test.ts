@@ -1,5 +1,5 @@
 import { bootstrap } from '../../src/bootstrap';
-import { Model } from '../../src/Model';
+import { BaseModel } from '../../src/BaseModel';
 
 describe('bootstrap', () => {
 
@@ -17,9 +17,9 @@ describe('bootstrap', () => {
 
     expect(fastifyInstance.decorate).toHaveBeenCalledTimes(2);
     expect(fastifyInstance.decorate).toHaveBeenCalledWith('connection', connection);
-    expect(fastifyInstance.decorate).toHaveBeenCalledWith('Model', Model);
+    expect(fastifyInstance.decorate).toHaveBeenCalledWith('BaseModel', BaseModel);
 
-    expect(Model.connection).toBe(connection);
+    expect(BaseModel.connection).toBe(connection);
     expect(callback).toBeCalledTimes(1);
   });
 

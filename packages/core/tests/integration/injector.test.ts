@@ -1,14 +1,21 @@
 import Injector from '../../src/injector';
-import { Samurai, Ninja, Backpack, Weapon, Katana, Shuriken, Naginata, Nunchaku, Tanto, Wakizashi } from '../data/injectables';
+import { FastifyToken } from '../../src/symbols';
+import { Samurai, Ninja, Backpack, Weapon, Katana, Shuriken, Naginata, Nunchaku, Tanto, Wakizashi, FastifyDecorated } from '../data/injectables';
 import type { FastifyInstance } from 'fastify';
+
 
 describe('Injector', () => {
 
   let injector: Injector;
-  const fastifyInstance: FastifyInstance = { schema: { id: { type: 'number' } }, steel: 'real steel' } as any;
+  const fastifyInstance: FastifyInstance = {
+    schema: { id: { type: 'number' } },
+    steel: 'real steel',
+    [FastifyDecorated]: 'FastifyDecoratedValue'
+  } as any;
 
   beforeEach(() => {
-    injector = new Injector(fastifyInstance);
+    injector = new Injector();
+    injector.registerInstance(FastifyToken, fastifyInstance);
   });
 
   it('Should use singleton instances', () => {
@@ -284,6 +291,24 @@ describe('Injector', () => {
         // @Model
         const weapon = injector.getInstance(Weapon);
         expect(weapon.fastifyInstance).toBeDefined();
+      });
+
+      it('Should inject Fastify decorated symbol by token', () => {
+        // @Controller
+        const samurai = injector.getInstance(Samurai);
+        expect(samurai.fastifyDecorated).toBe('FastifyDecoratedValue');
+  
+        // @EntityController
+        const ninja = injector.getInstance(Ninja);
+        expect(ninja.fastifyDecorated).toBe('FastifyDecoratedValue');
+  
+        // @Service
+        const backpack = injector.getInstance(Backpack);
+        expect(backpack.fastifyDecorated).toBe('FastifyDecoratedValue');
+  
+        // @Model
+        const weapon = injector.getInstance(Weapon);
+        expect(weapon.fastifyDecorated).toBe('FastifyDecoratedValue');
       });
 
       it('Should inject Service into class property by Symbol token', () => {

@@ -1,5 +1,6 @@
 import path from 'path';
 import { bootstrap } from '../../src/bootstrap';
+import { GlobalConfig } from '../../src/symbols';
 import fastify, { FastifyInstance } from 'fastify';
 import ModelMock, * as ModelMockMethods from '../support/ModelMock';
 import SampleController from '../data/controllers/sample.controller';
@@ -38,14 +39,14 @@ describe('Bootstrap', () => {
     expect(response.body).toBe('true');
   });
 
-  test('Should decorate configuration object as "fastify-resty-config"', async () => {
+  test('Should decorate global configuration object', async () => {
     bootstrap(server, {});
-    expect(server['fastify-resty-config']).toBeDefined();
+    expect(server[GlobalConfig]).toBeDefined();
   });
 
   test('Should use default configuration', async () => {
     await bootstrap(server, {});
-    const config = server['fastify-resty-config'];
+    const config = server[GlobalConfig];
 
     expect(config.entry).toBeUndefined();
     expect(config.pattern.test('mycontroller.controller.ts')).toBeTruthy();
@@ -69,7 +70,7 @@ describe('Bootstrap', () => {
       }
     });
 
-    expect(server['fastify-resty-config'].defaults).toMatchObject({
+    expect(server[GlobalConfig].defaults).toMatchObject({
       pagination: false,
       id: 'id',
       softDelete: true,
@@ -83,7 +84,7 @@ describe('Bootstrap', () => {
     ModelMockMethods.find.mockResolvedValue([{ name: 'Sample' }]);
     ModelMockMethods.total.mockResolvedValue(1);
 
-    server.decorate('Model', ModelMock);
+    server.decorate('BaseModel', ModelMock);
     await bootstrap(server, { controllers: [SampleController, EntitySampleController] });
 
     const responseSample = await server.inject({ method: 'GET', url: '/sample/custom?flag=true' });
@@ -111,7 +112,7 @@ describe('Bootstrap', () => {
     ModelMockMethods.find.mockResolvedValue([{ name: 'Sample' }]);
     ModelMockMethods.total.mockResolvedValue(1);
 
-    server.decorate('Model', ModelMock);
+    server.decorate('BaseModel', ModelMock);
     await bootstrap(server, { entry: path.join(__dirname, '../data/controllers') });
 
     const responseSample = await server.inject({ method: 'GET', url: '/sample/custom?flag=true' });

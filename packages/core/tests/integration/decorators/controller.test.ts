@@ -26,24 +26,6 @@ describe('@Controller decorator', () => {
       expect(server.printRoutes()).toMatch(/^└── \/\n\s{4}└── example \(GET\)\n\s{8}└── \/ \(GET\)\n$/);
     });
 
-    test('Should add app instance as controller property', async () => {
-      // arrange
-      const handler = jest.fn().mockImplementation(async function() {
-        return !!this.instance && !!this.instance.ready && !!this.instance['fastify-resty-config'];
-      })
-
-      const TestController = controllerFactory('/instance-check', [{ route: '/', method: 'GET', handler }]);
-      await bootstrap(server, { controllers: [TestController] });
-
-      // act
-      const response = await server.inject({ method: 'GET', url: '/instance-check/' });
-
-      // assert
-      expect(response.statusCode).toBe(200);
-      expect(response.statusMessage).toBe('OK');
-      expect(response.body).toBe('true');
-    });
-
     test('Should register controller without "route" option', async () => {
       // arrange
       const TestController = controllerFactory(undefined, [{ route: '/my-route', method: 'GET', handler: () => [] }]);

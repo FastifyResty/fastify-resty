@@ -1,6 +1,4 @@
-import type { Constructable } from '../types';
-
-type IInjectToken = string | Symbol;
+import type { Constructable, IInjectToken } from '../types';
 
 export function Inject(token?: IInjectToken) {
   return function(target, propertyKey: string, parameterIndex?: number): void {

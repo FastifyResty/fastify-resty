@@ -3,31 +3,25 @@ import methods from './methods';
 import getRoutes from './routes';
 import { createControllerConfig } from '../../configurations';
 import { baseSchema, schemaDefinitions } from './schemaBuilder';
-
+import { Initialize } from '../../symbols';
 import type { FastifyInstance } from 'fastify';
-import type { IControllerConfig, IControllerOptions, IModelOptions, IBaseModel } from '../../types';
+import type { IControllerConfig, IControllerOptions, IModelOptions, IBaseModel, Constructable } from '../../types';
 
 
 export function EntityController<E extends Object>(Entity: E, route?: string, options?: IControllerOptions & IModelOptions): any {
-  return function<T extends { new (...args: any[]): {} }>(target: T) {
+  return function<T extends Constructable>(target: T) {
     const origin = target;
 
     const handlersSet = Reflect.getMetadata('fastify-resty:handlers', origin.prototype) || new Set();
     const hooksSet = Reflect.getMetadata('fastify-resty:hooks', origin.prototype) || new Set();
 
-    (origin as any).prototype.initialize = function(fastifyInstance: FastifyInstance & { Model?: new(...args) => IBaseModel<E> }, defaultConfig: IControllerConfig) { // TODO make as symbol
-      if (!fastifyInstance.Model && typeof fastifyInstance !== 'function') {
+    (origin as any).prototype[Initialize] = function(fastifyInstance: FastifyInstance & { BaseModel?: new(...args) => IBaseModel<E> }, defaultConfig: IControllerConfig) {
+      if (!fastifyInstance.BaseModel && typeof fastifyInstance !== 'function') {
         throw new Error('Database connector is not bootstrapped! Missing Model class');
       }
 
-      if (!fastifyInstance.Model && typeof fastifyInstance !== 'function') {
-        throw new Error('Database connector is not bootstrapped! Missing Model class');
-      }
-  
-      this.instance = fastifyInstance; // TODO: not needed
       this.config = createControllerConfig(options, defaultConfig);
-      this.model = new fastifyInstance.Model(); // TODO: find a way to share with DI
-      this.model.EntityClass = Entity;
+      this.model = new fastifyInstance.BaseModel(Entity, this.config);
 
       const { jsonSchema } = this.model;
 

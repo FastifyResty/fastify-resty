@@ -1,10 +1,10 @@
-import { Model } from './Model';
+import { BaseModel } from './BaseModel';
 
 export function bootstrap(instance, { connection }, done) {
-  Model.connection = connection;
+  BaseModel.connection = connection;
 
   instance.decorate('connection', connection);
-  instance.decorate('Model', Model);
+  instance.decorate('BaseModel', BaseModel);
 
   done();
 }

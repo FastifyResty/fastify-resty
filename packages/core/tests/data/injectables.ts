@@ -8,6 +8,8 @@ import { FastifyToken } from '../../src/symbols';
 const TantoToken = Symbol('TantoToken');
 const NunchakuToken = Symbol('NunchakuToken');
 
+export const FastifyDecorated = Symbol('FastifyDecorated');
+
 /****** Injectables ******/
 
 @Service()
@@ -86,6 +88,9 @@ export class Samurai {
 
   @Inject(TantoToken)
   static tanto: { use: () => string }
+
+  @Inject(FastifyDecorated)
+  fastifyDecorated: string;
 }
 
 @EntityController({})
@@ -131,6 +136,9 @@ export class Ninja {
 
   @Inject(TantoToken)
   static tanto: { use: () => string }
+
+  @Inject(FastifyDecorated)
+  fastifyDecorated: string;
 }
 
 @Service()
@@ -176,6 +184,9 @@ export class Backpack {
 
   @Inject(TantoToken)
   static tanto: { use: () => string }
+
+  @Inject(FastifyDecorated)
+  fastifyDecorated: string;
 }
 
 @Model({})
@@ -221,4 +232,7 @@ export class Weapon {
 
   @Inject(TantoToken)
   static tanto: { use: () => string }
+
+  @Inject(FastifyDecorated)
+  fastifyDecorated: string;
 }

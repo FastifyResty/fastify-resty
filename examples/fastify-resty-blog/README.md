@@ -6,9 +6,9 @@ The current example application shows the key features of `Fastify Resty` for bu
 
 There are 3 types of controllers implemented:
 
-- :wrench: Automatic controller `author.controller.ts` for TypeORM entity
-- :wrench: Custom controller `generator.controller.ts` without model entity binding
-- :wrench: Automatic controller `post.controller.ts` with additional custom route and hook
+- :wrench: Automatic zero-configuration controller `author.controller.ts` for TypeORM entity
+- :wrench: Custom controller `generator.controller.ts` without model entity binding using custom service `generator.service.ts` with logic
+- :wrench: Automatic controller `post.controller.ts` with additional custom route and hook, using service with model integration
 
 As the result we will have the following API routes structure:
 
@@ -25,11 +25,12 @@ As the result we will have the following API routes structure:
     │   └── post (GET)
     └── posts (DELETE|GET|PATCH|POST|PUT)
         └── / (DELETE|GET|PATCH|POST|PUT)
-            └── :id (DELETE)
+            ├── :id (DELETE)
                 :id (GET)
                 :id (PATCH)
                 :id (PUT)
-                └── /author (GET)
+            │   └── /author (GET)
+            └── random (GET)
 ```
 
 ### Requirements :white_check_mark:
@@ -60,9 +61,9 @@ $ node src/app.js
 
 ### Helpful Notes :moyai:
 
-There are a few ways to up and run the postgres database for the current API example.
+There are a few ways to up and run the Postgres database for the current API example.
 You could download and install it from the official [postgresql download page](https://www.postgresql.org/download/), or
-run it in a quicker way using following [Docker :whale:](https://www.docker.com/)  CLI command:
+run it in a quicker way using following [Docker :whale:](https://www.docker.com/) CLI command:
 
 ```sh
 $ docker run --name postgres-db -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres

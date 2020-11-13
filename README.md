@@ -32,8 +32,8 @@ If you find this useful, please don't forget to star :star:&nbsp; the repo, as t
 - **Zero configuration** - Generates [RESTful API](https://restfulapi.net/) routes for your data out the box
 - **JSON Schema validation** - Build [JSON Schemas](https://json-schema.org/) to validate and speedup your requests and replies
 - **Highly customizable** - provides a lot of possible configurations for your application
-- **100% TypeScript** - Written in [TypeScript](https://www.typescriptlang.org/) and come with all the required typings
-- **Declarative intrerface** - Uses decorators for routes and models definitions
+- **100% TypeScript** - Written in [TypeScript](https://www.typescriptlang.org/) and comes with all the required typings
+- **Declarative interface** - Uses decorators for routes and models definitions
 - **Fastify compatible** - Built with [Fastify](https://www.fastify.io/) and supports all its features and plugins
 - **ASAP** - Which means *as simple as possible* for us
 

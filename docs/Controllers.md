@@ -3,13 +3,13 @@
 **Controllers** are decorated classes designed to handle incoming requests 
 to its routes.
 
-See the [Boostrapping](./Bootstrapping.md) section to get more information 
+See the [Bootstrapping](./Bootstrapping.md) section to get more information 
 about their register in fastify application.
 
 ## Controller creation
 
 Firstly, we need to create our controller class and decorate it with the 
-`@Controller` decorator which is provided by **Fastify Resty**.
+`@Controller` decorator which is provided by **Fastify Resty** core.
 
 ```ts
 import { Controller } from '@fastify-resty/core';
@@ -18,7 +18,7 @@ import { Controller } from '@fastify-resty/core';
 export default class MyController {}
 ```
 
-> **Note!** Controller class has to be default exported to be pickups by 
+> **Note!** Controller class has to be default exported to be picked-up by 
 the autoloading mechanism.
 
 ## Controller decorator configuration
@@ -37,8 +37,8 @@ Handles app root path:
 
 ```ts
 @Controller('/')
-
-@Controller() // root "/" route is default
+// or
+@Controller() // root '/' route is default
 ```
 
 ## Controller's requests methods
@@ -123,18 +123,22 @@ The list of hooks decorators:
 ## Controller's properties
 
 There might be some cases when you need to have an access to `fastify` instance inside 
-the controller's methods. For that `instance` property is automatically added by `@Controller` 
-decorator, but it would be nice to define the `FastifyInstance` type definition for having 
-the related suggestions from your code editor.
+the controller's methods. For that, you need to inject it into the controller using `@Inject` 
+decorator with `FastifyToken` token. The same rule works for global application configuration
+that available with `GlobalConfig` token.
 
 ```ts
-import { Controller, OnRequest } from '@fastify-resty/core';
+import { Controller, Inject, FastifyToken, GlobalConfig, IApplicationConfig } from '@fastify-resty/core';
 import type { FastifyInstance } from 'fastify';
 
 @Controller('/route')
 export class MyController {
 
+  @Inject(FastifyToken)
   instance: FastifyInstance;
+
+  @Inject(GlobalConfig)
+  globalConfig: IApplicationConfig;
 
 }
 ```

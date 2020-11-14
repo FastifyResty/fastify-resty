@@ -2,7 +2,7 @@
 
 ## Overview
 
-**Entity Controllers** is the most powerful and exсited feature provided by **Fastify Resty**. It allows you to create and REST API interface for your data models with zero-configuration. At the same time, all the methods will be high speed and reliable, because **Entity Controllers** generates [JSON Schema](https://json-schema.org/) to validate the routes and serialize their outputs.
+**Entity Controllers** is the most powerful and excited feature provided by **Fastify Resty**. It allows you to create and REST API interface for your data models with zero-configuration. At the same time, all the methods will be high speed and reliable, because **Entity Controllers** generates [JSON Schema](https://json-schema.org/) to validate the routes and serialize their outputs.
 
 Automatically generated endpoints are happy to be extended or rewritten for some tricky cases. They also support some configuration to adjust the generate behavior.
 
@@ -104,8 +104,7 @@ In the same as **Controller**, **EntityController** adds some helpful properties
 
 | Property | Type | Description |
 | --- | --- | --- |
-| `instance` | `FastifyInstance` | **Fastify** instance |
-| `config` | `IControllerConfig` | The final configuration, defined for the **EntityController** |
+| `config` | `IControllerConfig` | The controller-specific configuration, defined for the **EntityController** |
 | `model` | `IBaseModel` | [Model](./Model.md) instance for controller entity |
 
 Despite they already available on entity controller class, it would be better to declare them with related types, to have type suggestion, and avoid TypeScript compilation errors.
@@ -117,8 +116,6 @@ import type { FastifyInstance } from 'fastify';
 
 @EntityController(UserEntity, '/users')
 export default class UserController {
-
-  instance: FastifyInstance;
 
   config: IControllerConfig;
 

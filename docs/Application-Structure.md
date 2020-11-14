@@ -13,8 +13,10 @@ The structure could be different depends on the goal you want to achieve, but in
             └── post/                    # resource routes
                 └── post.controller.ts   # resource controller to handle endpoints routes
                 └── post.entity.ts       # resource entity data schema
-        └── libs/                        # custom services and utilities
-        └── config/                      # app configuration files (if needed)
+                └── post.model.ts        # resource data model to handle data-based operations (optional)
+                └── post.service.ts      # resource-specific business logic (optional)
+        └── libs/                        # general services and utilities (optional)
+        └── config/                      # app configuration files (optional)
         └── app.ts                       # app main bootstrap
     └── tsconfig.ts                      # holds metadata and npm dependencies
     └── package.json                     # typescript compiler options

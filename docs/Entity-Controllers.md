@@ -2,13 +2,13 @@
 
 ## Overview
 
-**Entity Controllers** is the most powerful and excited feature provided by **Fastify Resty**. It allows you to create and REST API interface for your data models with zero-configuration. At the same time, all the methods will be high speed and reliable, because **Entity Controllers** generates [JSON Schema](https://json-schema.org/) to validate the routes and serialize their outputs.
+**Entity Controllers** is the most powerful and excited feature provided by **Fastify Resty**. It allows you to create REST API interface for your data models with zero-configuration. At the same time, all the methods will be high speed and reliable, because **Entity Controllers** generates [JSON Schema](https://json-schema.org/) to validate the routes and serialize their outputs.
 
 Automatically generated endpoints are happy to be extended or rewritten for some tricky cases. They also support some configuration to adjust the generate behavior.
 
 ## Basic usage
 
-All that we need to generate REST endpoint for your data model is just an empty controller, decorated with `@EntityController` decorator, and **Entity** class which has all the data schema definitions.
+All what we need to generate REST endpoint for your data model is just an empty controller, decorated with `@EntityController` decorator, and **Entity** class which has all the data schema definitions.
 
 ```ts
 import { EntityController } from '@fastify-resty/core';
@@ -100,7 +100,7 @@ All the common controller hooks and methods are supported on **EntityController*
 
 ### Properties
 
-In the same as **Controller**, **EntityController** adds some helpful properties to each class that might be needed for custom additional logic or default methods overriding.
+**EntityController** adds some helpful properties to each class that might be needed for custom additional logic or default methods overriding.
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -130,12 +130,10 @@ export default class UserController {
 @EntityController(entity: Function, route: string, options?: IControllerConfig);
 ```
 
-**EntityController** decorator options:
-
 | Argument | Type | isRequired | Description | Default |
 | --- | --- | --- | --- | --- |
 | `entity` | `class` | yes | The entity class containing data schema definitions. | - |
 | `route` | `string` | no | Controller's endpoint root path. All the controller's routes will be starting with it. | `/` |
-| `options` | `object` (`IControllerConfig`) | no | Controller specific optional configuration. By default, application `default*` configuration is used. If controller options object is set, it will be merged with application config with rewrite specified fields. | `{ pagination: false, id: 'id', allowMulti: true, returning: true }` |
+| `options` | `object` (`IControllerConfig`) | no | Controller specific optional configuration. By default, application `default`* configuration is used. If controller options object is set, it will be merged with application config with rewrite specified fields. | `{ pagination: false, id: 'id', allowMulti: true, returning: true }` |
 
 `*` See the possible `defaults` options on [Bootstrap configuration options](./Bootstrapping.md#bootstrap-configuration-options) docs.

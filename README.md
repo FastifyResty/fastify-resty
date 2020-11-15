@@ -32,24 +32,39 @@ If you find this useful, please don't forget to star :star:&nbsp; the repo, as t
 - **Zero configuration** - Generates [RESTful API](https://restfulapi.net/) routes for your data out the box
 - **JSON Schema validation** - Build [JSON Schemas](https://json-schema.org/) to validate and speedup your requests and replies
 - **Highly customizable** - provides a lot of possible configurations for your application
-- **100% TypeScript** - Written in [TypeScript](https://www.typescriptlang.org/) and comes with all the required typings
+- **Purely TypeScript** - Written in [TypeScript](https://www.typescriptlang.org/) and comes with all the required typings
 - **Declarative interface** - Uses decorators for routes and models definitions
 - **Fastify compatible** - Built with [Fastify](https://www.fastify.io/) and supports all its features and plugins
 - **Built-in DI** - Provides simple Dependency Injection interface to bind your entries
-- **ASAP** - Which means *as simple as possible* for us
 
 ## Install :pushpin:
+
+#### Core modules
 
 **Using Yarn:**
 
 ```sh
-yarn add @fastify-resty/core @fastify-resty/typeorm fastify typeorm
+$ yarn add @fastify-resty/core fastify
 ```
 
 **Using NPM:**
 
 ```sh
-npm install @fastify-resty/core @fastify-resty/typeorm fastify typeorm
+$ npm install @fastify-resty/core fastify
+```
+
+#### TypeORM connector:
+
+**Using Yarn:**
+
+```sh
+$ yarn add @fastify-resty/typeorm typeorm
+```
+
+**Using NPM:**
+
+```sh
+$ npm install @fastify-resty/typeorm typeorm
 ```
 
 ## Usage :rocket:
@@ -131,8 +146,8 @@ main();
 - [Controllers](./docs/Controllers.md) :label:
 - [Entity Controllers](./docs/Entity-Controllers.md) :label:
 - [Model](./docs/Model.md) :label:
-- [Services](./Services.md) :label:
-- [Dependency Injection](./Dependency-Injection.md) :label:
+- [Services](./docs/Services.md) :label:
+- [Dependency Injection](./docs/Dependency-Injection.md) :label:
 
 ## Packages :package:
 
@@ -141,8 +156,8 @@ main();
 
 ## Examples :microscope:
 
-- [Fastify Resty Blog API](https://github.com/Fastify-Resty/fastify-resty/tree/main/examples/fastify-resty-blog)
 - [Fastify Resty Quickstart](https://github.com/Fastify-Resty/fastify-resty/tree/main/examples/fastify-resty-quickstart)
+- [Fastify Resty Blog API](https://github.com/Fastify-Resty/fastify-resty/tree/main/examples/fastify-resty-blog)
 
 ## Issues and contributions :memo:
 

@@ -27,6 +27,10 @@ async function main() {
     // direct controllers declaration
     controllers: [UsersController, PostsController]
   });
+
+  app.listen(8080, (err, address) => {
+    console.log(`Server is listening on ${address}`);
+  });
 }
 
 main();

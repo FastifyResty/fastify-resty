@@ -1,17 +1,17 @@
 # Services
 
-## Purpose
+## Overview
 
 Services were designed to hide a massive business logic and reduce codebase of controllers. 
 Service, generally, is a class with bunch of methods that solve some specific problems and 
 could be shared with other controllers or services using [Dependency Injection](./Dependency-Injection.md) 
 mechanism.
 
-Services could use [Models](./Model.md) to work with actual data, stored in database.
+Services could inject and use [Models](./Model.md) to work with actual data, stored in database.
 
-## Creation
+## Service creation
 
-To specify class as injectable service we need to decorate it with `@Service()` provided by 
+To specify class as injectable service we need to decorate it with `@Service` decorator provided by 
 **Fastify Resty** core functionality.
 
 ```ts

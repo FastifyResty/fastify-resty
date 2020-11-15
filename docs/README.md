@@ -1,10 +1,10 @@
-# Fastify Resty Docs :books:
+# Fastify Resty Documentation :books:
 
-- [Quickstart :label:](./Quickstart.md)
-- [Application Structure :label:](./Application-Structure.md)
-- [Bootstrapping :label:](./Bootstrapping.md)
-- [Controllers :label:](./Controllers.md)
-- [Entity Controllers :label:](./Entity-Controllers.md)
-- [Model :label:](./Model.md)
-- [Services :label:](./Services.md)
-- [Dependency Injection :label:](./Dependency-Injection.md)
+- [Quickstart](./Quickstart.md) :label:
+- [Application Structure](./Application-Structure.md) :label:
+- [Bootstrapping](./Bootstrapping.md) :label:
+- [Controllers](./Controllers.md) :label:
+- [Entity Controllers](./Entity-Controllers.md) :label:
+- [Model](./Model.md) :label:
+- [Services](./Services.md) :label:
+- [Dependency Injection](./Dependency-Injection.md) :label:

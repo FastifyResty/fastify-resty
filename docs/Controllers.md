@@ -1,10 +1,8 @@
 # Controllers
 
 **Controllers** are decorated classes designed to handle incoming requests 
-to its routes.
-
-See the [Bootstrapping](./Bootstrapping.md) section to get more information 
-about their register in fastify application.
+to its routes. See the [Bootstrapping](./Bootstrapping.md) section to get 
+more information about their register in fastify application.
 
 ## Controller creation
 
@@ -24,8 +22,8 @@ the autoloading mechanism.
 ## Controller decorator configuration
 
 The only optional property for the `Controller` decorator is the route URL, 
-which will be the root path of our controller's endpoints. If not set, "/" 
-path will be used for a controller router.
+which will be the root path of our controller's endpoints. If not set, path 
+`/` will be used for a controller router.
 
 Handles `/articles` path:
 
@@ -50,14 +48,19 @@ Method handler receives [Request](https://www.fastify.io/docs/latest/Request/) a
 [Reply](https://www.fastify.io/docs/latest/Reply/) objects and works the same as **Fastify** route handler.
 
 ```ts
-import { Controller, POST } from '@fastify-resty/core';
-import type { FastifyRequest } from 'fastify';
+import { Controller, GET, POST } from '@fastify-resty/core';
+import type { FastifyRequest, FastifyResponse } from 'fastify';
 
 @Controller('/route')
 export default class MyController {
 
   @POST('/')
-  async create(request: FastifyRequest) {
+  create(request: FastifyRequest, reply: FastifyReply) {
+    // ...
+  }
+
+  @GET('/')
+  async get(request: FastifyRequest) {
     // ...
     return [];
   }
@@ -67,16 +70,18 @@ export default class MyController {
 
 Here the list of available HTTP methods decorators:
 
-- **@GET(route, options?)**
-- **@HEAD(route, options?)**
-- **@PATCH(route, options?)**
-- **@POST(route, options?)**
-- **@PUT(route, options?)**
-- **@OPTIONS(route, options?)**
-- **@DELETE(route, options?)**
-- **@ALL(route, methods?, options?)**
+| Decorator | Arguments |
+| --- | --- |
+| **@GET** | `route`, `options?` |
+| **@HEAD** | `route`, `options?` |
+| **@PATCH** | `route`, `options?` |
+| **@POST** | `route`, `options?` |
+| **@PUT** | `route`, `options?` |
+| **@OPTIONS** | `route`, `options?` |
+| **@DELETE** | `route`, `options?` |
+| **@ALL** | `route`, `methods?`, `options?` |
 
-As you could see, each decorator has one required string `route` option which 
+Each request method decorator has one required string `route` option which 
 defines a route path.
 
 Another not mandatory parameter is `options` which allow all the **Fastify** 

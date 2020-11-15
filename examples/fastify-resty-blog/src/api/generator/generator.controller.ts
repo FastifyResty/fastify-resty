@@ -25,7 +25,7 @@ const getAuthorSchema = {
  */
 @Controller('/generate')
 export default class GeneratorController {
-  constructor(private generatorService: GeneratorService) {}
+  constructor(private _generatorService: GeneratorService) {}
 
   @GET('/author', { schema: getAuthorSchema })
   async getAuthor(request: FastifyRequest<{ Querystring: { multy?: number } }>) {
@@ -33,19 +33,15 @@ export default class GeneratorController {
 
     if (itemsCount) {
       const authors = [];
-      
-      for (let i = 0; i < itemsCount; i++) {
-        authors.push(this.generatorService.generateAuthor());
-      }
-
+      for (let i = 0; i < itemsCount; i++) authors.push(this._generatorService.generateAuthor());
       return { total: itemsCount, data: authors };
     }
 
-    return this.generatorService.generateAuthor();
+    return this._generatorService.generateAuthor();
   }
 
   @GET('/post')
   async getPost() {
-    return this.generatorService.generatePost();
+    return this._generatorService.generatePost();
   }
 }

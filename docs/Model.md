@@ -3,8 +3,8 @@
 **Fastify Resty** database adaptors, like `@fastify-resty/typeorm` provides extendable `BaseModel`
 class wrappers to create a simple interface for the interaction with your model entities.
 
-It was designed for `EntityController` to work with database entities,
-but you are able to use them independently for your needs.
+`EntityController` uses `BaseModel` inside to work with database entities, but you are able to use 
+them independently for your needs.
 
 ## Bootstrap
 
@@ -72,9 +72,9 @@ You are able to set a model-specific configuration to the first `@Model` decorat
 @Model(SampleEntity, { id: '_id' })
 ```
 
-## BaseModel Methods
+## Basic Methods
 
-### Find
+- ### Find
 
 ```ts
 find(query?: IFindQuery): Promise<E[]>
@@ -96,7 +96,7 @@ const results = await model.find({
 });
 ```
 
-### Total
+- ### Total
 
 ```ts
 total(query?: IFindWhereQuery): Promise<number>
@@ -127,7 +127,7 @@ const result = await model.create([
 console.log(result); // { identifiers: [1, 2] }
 ```
 
-### Patch
+- ### Patch
 
 ```ts
 patch(query: IFindWhereQuery, raw: Partial<E>): Promise<ModifyResponse>
@@ -145,7 +145,7 @@ const result = await model.patch(
 console.log(result); // { affected: 2 }
 ```
 
-### Update
+- ### Update
 
 ```ts
 update(query: IFindWhereQuery, raw: E): Promise<ModifyResponse>
@@ -163,7 +163,7 @@ const result = await model.update(
 console.log(result); // { affected: 1 }
 ```
 
-### Remove
+- ### Remove
 
 ```ts
 remove(query: IFindWhereQuery): Promise<ModifyResponse>

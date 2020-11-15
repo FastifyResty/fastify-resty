@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { Model } from '../../src/Model';
+import { BaseModel } from '../../src/BaseModel';
 import { createConnection, Connection, Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Repository } from 'typeorm';
 
 import usersData from '../data/users.json';
@@ -43,7 +43,7 @@ class User {
 
 describe('Model integration', () => {
   let connection: Connection;
-  let model: Model<User>;
+  let model: BaseModel<User>;
   let userRepository: Repository<User>;
   
   beforeAll(async () => {
@@ -55,8 +55,8 @@ describe('Model integration', () => {
 
     await connection.synchronize();
 
-    Model.connection = connection;
-    model = new Model(User);
+    BaseModel.connection = connection;
+    model = new BaseModel(User);
 
     userRepository = connection.getRepository(User);
   });

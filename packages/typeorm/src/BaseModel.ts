@@ -5,33 +5,35 @@ import type { IFindQuery, IFindWhereQuery, IBaseModel, Identifier, ModifyRespons
 import type { JSONSchema7 } from 'json-schema';
 import type { ObjectType, Connection } from 'typeorm';
 
-export class Model<E extends object = any> implements IBaseModel<E> {
-  constructor(private readonly EntityClass: ObjectType<E>, options: IModelOptions = {}) {
-    this.config = {
-      id: options.id || 'id',
-      softDelete: options.softDelete !== undefined ? options.softDelete : false // TODO: TBD
-    };
-  }
+export class BaseModel<E extends object = any> implements IBaseModel<E> {
 
   static connection: Connection;
 
-  protected config: IModelConfig;
+  constructor(protected EntityClass: ObjectType<E>, config?: IModelOptions) {
+    this.config = {
+      id: 'id',
+      softDelete: false,
+      ...(config || {})
+    };
+  }
+
+  config: IModelConfig;
 
   get name() {
     return this.EntityClass.name;
   }
 
   get jsonSchema(): Record<string, JSONSchema7> {
-    const { columns } = Model.connection.getMetadata(this.EntityClass);
+    const { columns } = BaseModel.connection.getMetadata(this.EntityClass);
     return columns.reduce((props, column) => ({ ...props, [column.propertyName]: mapProperty(column)}), {});
   }
 
   async find(query?: IFindQuery): Promise<E[]> {
-    return createSelectQueryBuilder<E>(Model.connection, this.EntityClass, query).getMany();
+    return createSelectQueryBuilder<E>(BaseModel.connection, this.EntityClass, query).getMany();
   }
 
   async total(query?: IFindWhereQuery): Promise<number> {
-    const _queryBuilder = Model.connection
+    const _queryBuilder = BaseModel.connection
       .getRepository(this.EntityClass)
       .createQueryBuilder('entity');
 
@@ -43,7 +45,7 @@ export class Model<E extends object = any> implements IBaseModel<E> {
   }
 
   async create(data: E | E[]): Promise<{ identifiers: Identifier[] }> {
-    const result = await Model.connection
+    const result = await BaseModel.connection
       .createQueryBuilder()
       .insert()
       .into(this.EntityClass)
@@ -56,7 +58,7 @@ export class Model<E extends object = any> implements IBaseModel<E> {
   async patch(query: IFindWhereQuery, raw: Partial<E>): Promise<ModifyResponse> {
     const data = _.omit(raw, this.config.id) as E;
 
-    const _queryBuilder = Model.connection
+    const _queryBuilder = BaseModel.connection
       .createQueryBuilder()
       .update(this.EntityClass)
       .set(data);
@@ -67,7 +69,7 @@ export class Model<E extends object = any> implements IBaseModel<E> {
   }
 
   async update(query: IFindWhereQuery, raw: E): Promise<ModifyResponse> {
-    const data = Model.connection
+    const data = BaseModel.connection
       .getMetadata(this.EntityClass)
       .columns
       .reduce((data, column) => {
@@ -82,7 +84,7 @@ export class Model<E extends object = any> implements IBaseModel<E> {
         return { ...data, [column.propertyName]: raw[column.propertyName] };
       }, {});
 
-    const _queryBuilder = Model.connection
+    const _queryBuilder = BaseModel.connection
       .createQueryBuilder()
       .update(this.EntityClass)
       .set(data);
@@ -93,7 +95,7 @@ export class Model<E extends object = any> implements IBaseModel<E> {
   }
 
   async remove(query: IFindWhereQuery): Promise<ModifyResponse> {
-    const _queryBuilder = Model.connection
+    const _queryBuilder = BaseModel.connection
       .createQueryBuilder()
       .delete()
       .from(this.EntityClass)

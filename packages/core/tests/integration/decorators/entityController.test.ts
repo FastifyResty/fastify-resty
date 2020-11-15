@@ -2,12 +2,18 @@ import { EntityController } from '../../../src/decorators/entityController';
 import { GET } from '../../../src/decorators/requestMethods';
 import { PreHandler } from '../../../src/decorators/hooks';
 import { bootstrap } from '../../../src/bootstrap';
+import { Inject } from '../../../src/decorators/inject';
+import { FastifyToken } from '../../../src/symbols';
 import entityControllerMethods from '../../../src/decorators/entityController/methods';
 import fastify, { FastifyInstance } from 'fastify';
 import ModelMock, * as ModelMockMethods from '../../support/ModelMock';
 
+
 @EntityController({}, '/entity')
 class EntityControllerTest {
+  @Inject(FastifyToken)
+  instance: FastifyInstance;
+
   @GET('/custom', {
     schema: {
       querystring: {
@@ -49,7 +55,7 @@ describe('@EntityController decorator', () => {
 
   beforeEach(() => {
     server = fastify();
-    server.decorate('Model', ModelMock);
+    server.decorate('BaseModel', ModelMock);
   });
 
   afterEach(() => {
@@ -115,13 +121,10 @@ describe('@EntityController decorator', () => {
       expect(spies.preHandlerHook.mock.calls[1]).toHaveLength(3);
     });
 
-    test('Should add app instance as controller property', () => {
+    test('Should inject app instance as controller property', () => {
       const controllerInstance = bootstrapResult.controllers[0];
 
       expect(controllerInstance).toHaveProperty('instance');
-      expect(controllerInstance.instance).toHaveProperty('getSchema');
-      expect(controllerInstance.instance).toHaveProperty('fastify-resty-config');
-
       // TODO: better way to check fastify instance (kind of instanceof)
     });
 

@@ -1,19 +1,25 @@
 import fs from 'fs';
 import path from 'path';
 import qs from 'qs';
+import Injector from './injector';
+import { FastifyToken, GlobalConfig, Initialize } from './symbols';
 import { createAppConfig } from './configurations';
 import type { FastifyInstance } from 'fastify';
 import type { Constructable, IApplicationOptions } from './types';
 
 interface IBootstrapResult {
-  controllers: any[]; // specify controllers type
+  controllers: any[]; // TODO specify controllers type
 }
 
 export async function bootstrap(fastifyInstance: FastifyInstance, options: IApplicationOptions): Promise<IBootstrapResult> {
   const config = createAppConfig(options);
   const controllers = new Set<Constructable>();
 
-  fastifyInstance.decorate('fastify-resty-config', config);
+  const injector = new Injector();
+  injector.registerInstance(FastifyToken, fastifyInstance);
+
+  // decorate global config
+  fastifyInstance.decorate(GlobalConfig, config);
 
   // add custom query parser for each request (qs)
   fastifyInstance.addHook('onRequest', async request => {
@@ -54,7 +60,13 @@ export async function bootstrap(fastifyInstance: FastifyInstance, options: IAppl
       const controllerMetadata = Reflect.getMetadata('fastify-resty:controller', controller.prototype);
 
       await fastifyInstance.register(async instance => {
-        controllerInstance = Reflect.construct(controller, [instance, config.defaults]);
+        // resolve controller instance using DI
+        controllerInstance = injector.getInstance(controller);
+
+        // initialize built-in configuration
+        if (typeof controllerInstance[Initialize] === 'function') {
+          controllerInstance[Initialize](instance, config.defaults);
+        }
 
         // add schema definitions to global scope
         if (Reflect.hasMetadata('fastify-resty:definitions', controllerInstance)) {

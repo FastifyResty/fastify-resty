@@ -78,6 +78,8 @@ export interface IBaseModel<E extends object> {
   remove (query: IFindWhereQuery):          Promise<ModifyResponse>;
 }
 
+export type IInjectToken = string | symbol;
+
 /*
  * Configuration types
  */

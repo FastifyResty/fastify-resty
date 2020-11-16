@@ -4,6 +4,7 @@ import { Controller } from '../../src/decorators/controller';
 import { EntityController } from '../../src/decorators/entityController';
 import { Model } from '../../src/decorators/model';
 import { FastifyToken } from '../../src/symbols';
+import { IBaseModel } from '../../dist';
 
 const TantoToken = Symbol('TantoToken');
 const NunchakuToken = Symbol('NunchakuToken');
@@ -42,6 +43,7 @@ export class Nunchaku {
   brandish() { return 'wjuuuh-wjuuuh-wjuuuh'; };
 }
 
+export class BackpackEntity {}
 
 /****** Injectable ******/
 
@@ -51,16 +53,19 @@ export class Samurai {
     public katana: Katana,
     @Inject('schema') schema,
     @Inject() naginata: Naginata,
-    @Inject(NunchakuToken) nunchaku
+    @Inject(NunchakuToken) nunchaku,
+    @Model(BackpackEntity) backpackModel
   ) {
     this.schema = schema;
     this.naginata = naginata;
     this.nunchaku = nunchaku;
+    this.backpackModel = backpackModel;
   }
 
   schema: any;
   naginata: Naginata;
   nunchaku: Nunchaku;
+  backpackModel: IBaseModel<BackpackEntity>;
 
   @Inject()
   shuriken: Shuriken;
@@ -91,6 +96,12 @@ export class Samurai {
 
   @Inject(FastifyDecorated)
   fastifyDecorated: string;
+
+  @Model(BackpackEntity)
+  backpack: IBaseModel<BackpackEntity>;
+
+  @Model(BackpackEntity)
+  static backpack: IBaseModel<BackpackEntity>;
 }
 
 @EntityController({})
@@ -99,16 +110,19 @@ export class Ninja {
     public katana: Katana,
     @Inject('schema') schema,
     @Inject() naginata: Naginata,
-    @Inject(NunchakuToken) nunchaku
+    @Inject(NunchakuToken) nunchaku,
+    @Model(BackpackEntity) backpackModel
   ) {
     this.schema = schema;
     this.naginata = naginata;
     this.nunchaku = nunchaku;
+    this.backpackModel = backpackModel;
   }
 
   schema: any;
   naginata: Naginata;
   nunchaku: Nunchaku;
+  backpackModel: IBaseModel<BackpackEntity>;
 
   @Inject()
   shuriken: Shuriken;
@@ -139,72 +153,33 @@ export class Ninja {
 
   @Inject(FastifyDecorated)
   fastifyDecorated: string;
+
+  @Model(BackpackEntity)
+  backpack: IBaseModel<BackpackEntity>;
+
+  @Model(BackpackEntity)
+  static backpack: IBaseModel<BackpackEntity>;
 }
 
 @Service()
-export class Backpack {
-  constructor(
-    public katana: Katana,
-    @Inject('schema') schema,
-    @Inject() naginata: Naginata,
-    @Inject(NunchakuToken) nunchaku
-  ) {
-    this.schema = schema;
-    this.naginata = naginata;
-    this.nunchaku = nunchaku;
-  }
-
-  schema: any;
-  naginata: Naginata;
-  nunchaku: Nunchaku;
-
-  @Inject()
-  shuriken: Shuriken;
-
-  @Inject()
-  static shuriken: Shuriken;
-
-  @Inject('steel')
-  steel: string;
-
-  @Inject('steel')
-  static steel: string;
-
-  @Inject('Wakizashi')
-  wakizashi: { fight: () => string };
-
-  @Inject('Wakizashi')
-  static wakizashi: { fight: () => string };
-
-  @Inject(FastifyToken)
-  fastifyInstance;
-
-  @Inject(TantoToken)
-  tanto: { use: () => string }
-
-  @Inject(TantoToken)
-  static tanto: { use: () => string }
-
-  @Inject(FastifyDecorated)
-  fastifyDecorated: string;
-}
-
-@Model({})
 export class Weapon {
   constructor(
     public katana: Katana,
     @Inject('schema') schema,
     @Inject() naginata: Naginata,
-    @Inject(NunchakuToken) nunchaku
+    @Inject(NunchakuToken) nunchaku,
+    @Model(BackpackEntity) backpackModel
   ) {
     this.schema = schema;
     this.naginata = naginata;
     this.nunchaku = nunchaku;
+    this.backpackModel = backpackModel;
   }
 
   schema: any;
   naginata: Naginata;
   nunchaku: Nunchaku;
+  backpackModel: IBaseModel<BackpackEntity>;
 
   @Inject()
   shuriken: Shuriken;
@@ -235,4 +210,10 @@ export class Weapon {
 
   @Inject(FastifyDecorated)
   fastifyDecorated: string;
+
+  @Model(BackpackEntity)
+  backpack: IBaseModel<BackpackEntity>;
+
+  @Model(BackpackEntity)
+  static backpack: IBaseModel<BackpackEntity>;
 }

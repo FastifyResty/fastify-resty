@@ -40,9 +40,11 @@
     "coverage": "jest --collect-coverage"
   },
   "dependencies": {
-    "fastify": "^3.3.0",
     "http-errors": "^1.8.0",
     "qs": "^6.9.4",
     "reflect-metadata": "^0.1.13"
+  },
+  "peerDependencies": {
+    "fastify": "3.x"
   }
 }

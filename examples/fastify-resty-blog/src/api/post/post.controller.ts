@@ -11,7 +11,7 @@ import type { Connection } from 'typeorm';
  * @fastify-resty/typeorm library and PostService service with some logic
  */
 @EntityController(PostEntity, '/posts')
-class PostController {
+export default class PostController {
   constructor(private postService: PostService) {}
 
   @Inject('connection')
@@ -49,5 +49,3 @@ class PostController {
     console.log(`Request #${request.id}`);
   }
 }
-
-export default PostController;

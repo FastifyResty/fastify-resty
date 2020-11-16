@@ -1,13 +1,18 @@
-import type { IModelOptions, Constructable } from '../types';
+import type { IModelOptions } from '../types';
 
 export function Model(Entity, options?: IModelOptions) {
-  return function <T extends Constructable>(constructor: T) {
-    return class extends constructor {
-      EntityClass = Entity;
-      config = { // TODO: might be not needed in core package
-        id: options?.id || 'id',
-        softDelete: options?.softDelete !== undefined ? options.softDelete : false // TODO: TBD
-      };
+  return function (target, propertyKey: string, parameterIndex?: number): void {
+    let metadataKey;
+    if (typeof propertyKey === 'undefined' && typeof parameterIndex === 'number') {
+      metadataKey = 'fastify-resty:inject:constructor:model';
+    } else if (typeof propertyKey === 'string' && typeof parameterIndex === 'undefined') {
+      metadataKey = 'fastify-resty:inject:properties:model';
+    }
+
+    if (metadataKey) {
+      const injectMap: Map<string | number, any> = Reflect.getMetadata(metadataKey, target) || new Map();
+      injectMap.set(propertyKey || parameterIndex, { Entity, options });
+      Reflect.defineMetadata(metadataKey, injectMap, target);
     }
   }
 }

@@ -1,8 +1,9 @@
 import Injector from '../../src/injector';
 import { FastifyToken } from '../../src/symbols';
-import { Samurai, Ninja, Backpack, Weapon, Katana, Shuriken, Naginata, Nunchaku, Tanto, Wakizashi, FastifyDecorated } from '../data/injectables';
+import { Samurai, Ninja, Weapon, Katana, Shuriken, Naginata, Nunchaku, Tanto, Wakizashi, FastifyDecorated } from '../data/injectables';
 import type { FastifyInstance } from 'fastify';
 
+class BaseModel {}
 
 describe('Injector', () => {
 
@@ -10,7 +11,8 @@ describe('Injector', () => {
   const fastifyInstance: FastifyInstance = {
     schema: { id: { type: 'number' } },
     steel: 'real steel',
-    [FastifyDecorated]: 'FastifyDecoratedValue'
+    [FastifyDecorated]: 'FastifyDecoratedValue',
+    BaseModel
   } as any;
 
   beforeEach(() => {
@@ -19,50 +21,51 @@ describe('Injector', () => {
   });
 
   it('Should use singleton instances', () => {
+    const samuraiFirst = injector.getInstance(Samurai);
+    const samuraiSecond = injector.getInstance(Samurai);
+    expect(samuraiFirst).toBe(samuraiSecond);
+
     // Compare injects of two same class instances
-    const backpackFirst = injector.getInstance(Backpack);
-    const backpackSecond = injector.getInstance(Backpack);
-    expect(backpackFirst).toBe(backpackSecond);
-    expect(backpackFirst.katana).toBe(backpackSecond.katana);
-    expect(backpackFirst.shuriken).toBe(backpackSecond.shuriken);
-    expect(backpackFirst.naginata).toBe(backpackSecond.naginata);
-    expect(backpackFirst.nunchaku).toBe(backpackSecond.nunchaku);
-    expect(backpackFirst.tanto).toBe(backpackSecond.tanto);
-    expect(backpackFirst.wakizashi).toBe(backpackSecond.wakizashi);
-    expect(backpackFirst.fastifyInstance).toBe(backpackSecond.fastifyInstance);
+    expect(samuraiFirst.katana).toBe(samuraiSecond.katana);
+    expect(samuraiFirst.shuriken).toBe(samuraiSecond.shuriken);
+    expect(samuraiFirst.naginata).toBe(samuraiSecond.naginata);
+    expect(samuraiFirst.nunchaku).toBe(samuraiSecond.nunchaku);
+    expect(samuraiFirst.tanto).toBe(samuraiSecond.tanto);
+    expect(samuraiFirst.wakizashi).toBe(samuraiSecond.wakizashi);
+    expect(samuraiFirst.fastifyInstance).toBe(samuraiSecond.fastifyInstance);
 
     // Compare injects of instance and static class property
-    expect(backpackFirst.shuriken).toBe(Backpack.shuriken);
-    expect(backpackSecond.shuriken).toBe(Backpack.shuriken);
-    expect(backpackFirst.wakizashi).toBe(Backpack.wakizashi);
-    expect(backpackSecond.wakizashi).toBe(Backpack.wakizashi);
-    expect(backpackFirst.tanto).toBe(Backpack.tanto);
-    expect(backpackSecond.tanto).toBe(Backpack.tanto);
+    expect(samuraiFirst.shuriken).toBe(Samurai.shuriken);
+    expect(samuraiFirst.shuriken).toBe(Samurai.shuriken);
+    expect(samuraiFirst.wakizashi).toBe(Samurai.wakizashi);
+    expect(samuraiFirst.wakizashi).toBe(Samurai.wakizashi);
+    expect(samuraiFirst.tanto).toBe(Samurai.tanto);
+    expect(samuraiFirst.tanto).toBe(Samurai.tanto);
 
     // Compare injects of instances and newly resolved instances
     const katana = injector.getInstance(Katana);
-    expect(backpackFirst.katana).toBe(katana);
-    expect(backpackSecond.katana).toBe(katana);
+    expect(samuraiFirst.katana).toBe(katana);
+    expect(samuraiSecond.katana).toBe(katana);
 
     const shuriken = injector.getInstance(Shuriken);
-    expect(backpackFirst.shuriken).toBe(shuriken);
-    expect(backpackSecond.shuriken).toBe(shuriken);
+    expect(samuraiFirst.shuriken).toBe(shuriken);
+    expect(samuraiSecond.shuriken).toBe(shuriken);
 
     const naginata = injector.getInstance(Naginata);
-    expect(backpackFirst.naginata).toBe(naginata);
-    expect(backpackSecond.naginata).toBe(naginata);
+    expect(samuraiFirst.naginata).toBe(naginata);
+    expect(samuraiSecond.naginata).toBe(naginata);
 
     const nunchaku = injector.getInstance(Nunchaku);
-    expect(backpackFirst.nunchaku).toBe(nunchaku);
-    expect(backpackSecond.nunchaku).toBe(nunchaku);
+    expect(samuraiFirst.nunchaku).toBe(nunchaku);
+    expect(samuraiSecond.nunchaku).toBe(nunchaku);
 
     const tanto = injector.getInstance(Tanto);
-    expect(backpackFirst.tanto).toBe(tanto);
-    expect(backpackSecond.tanto).toBe(tanto);
+    expect(samuraiFirst.tanto).toBe(tanto);
+    expect(samuraiSecond.tanto).toBe(tanto);
 
     const wakizashi = injector.getInstance(Wakizashi);
-    expect(backpackFirst.wakizashi).toBe(wakizashi);
-    expect(backpackSecond.wakizashi).toBe(wakizashi);
+    expect(samuraiFirst.wakizashi).toBe(wakizashi);
+    expect(samuraiSecond.wakizashi).toBe(wakizashi);
   });
 
   describe('Resolve instance by type', () => {
@@ -79,11 +82,6 @@ describe('Injector', () => {
       expect(ninja.katana.hit).toBeDefined();
 
       // @Service
-      const backpack = injector.getInstance(Backpack);
-      expect(backpack.katana).toBeDefined();
-      expect(backpack.katana.hit).toBeDefined();
-
-      // @Model
       const weapon = injector.getInstance(Weapon);
       expect(weapon.katana).toBeDefined();
       expect(weapon.katana.hit).toBeDefined();
@@ -101,11 +99,6 @@ describe('Injector', () => {
       expect(ninja.shuriken.cast).toBeDefined();
 
       // @Service
-      const backpack = injector.getInstance(Backpack);
-      expect(backpack.shuriken).toBeDefined();
-      expect(backpack.shuriken.cast).toBeDefined();
-
-      // @Model
       const weapon = injector.getInstance(Weapon);
       expect(weapon.shuriken).toBeDefined();
       expect(weapon.shuriken.cast).toBeDefined();
@@ -123,11 +116,6 @@ describe('Injector', () => {
       expect(Ninja.shuriken.cast).toBeDefined();
 
       // @Service
-      injector.getInstance(Backpack);
-      expect(Backpack.shuriken).toBeDefined();
-      expect(Backpack.shuriken.cast).toBeDefined();
-
-      // @Model
       injector.getInstance(Weapon);
       expect(Weapon.shuriken).toBeDefined();
       expect(Weapon.shuriken.cast).toBeDefined();
@@ -144,12 +132,7 @@ describe('Injector', () => {
       expect(ninja.naginata).toBeDefined();
       expect(ninja.naginata.size).toBeDefined();
 
-      // @Service
-      const backpack = injector.getInstance(Backpack);
-      expect(backpack.naginata).toBeDefined();
-      expect(backpack.naginata.size).toBeDefined();
-
-       // @Model
+       // @Service
        const weapon = injector.getInstance(Weapon);
        expect(weapon.naginata).toBeDefined();
        expect(weapon.naginata.size).toBeDefined();
@@ -173,11 +156,6 @@ describe('Injector', () => {
         expect(ninja.schema).toEqual((fastifyInstance as any).schema);
   
         // @Service
-        const backpack = injector.getInstance(Backpack);
-        expect(backpack.schema).toBeDefined();
-        expect(backpack.schema).toEqual((fastifyInstance as any).schema);
-  
-        // @Model
         const weapon = injector.getInstance(Weapon);
         expect(weapon.schema).toBeDefined();
         expect(weapon.schema).toEqual((fastifyInstance as any).schema);
@@ -195,11 +173,6 @@ describe('Injector', () => {
         expect(ninja.steel).toBe('real steel');
   
         // @Service
-        const backpack = injector.getInstance(Backpack);
-        expect(backpack.steel).toBeDefined();
-        expect(backpack.steel).toBe('real steel');
-  
-        // @Model
         const weapon = injector.getInstance(Weapon);
         expect(weapon.steel).toBeDefined();
         expect(weapon.steel).toBe('real steel');
@@ -217,11 +190,6 @@ describe('Injector', () => {
         expect(Ninja.steel).toBe('real steel');
   
         // @Service
-        injector.getInstance(Backpack);
-        expect(Backpack.steel).toBeDefined();
-        expect(Backpack.steel).toBe('real steel');
-  
-        // @Model
         injector.getInstance(Weapon);
         expect(Weapon.steel).toBeDefined();
         expect(Weapon.steel).toBe('real steel');
@@ -239,11 +207,6 @@ describe('Injector', () => {
         expect(ninja.wakizashi.fight).toBeDefined();
   
         // @Service
-        const backpack = injector.getInstance(Backpack);
-        expect(backpack.wakizashi).toBeDefined();
-        expect(backpack.wakizashi.fight).toBeDefined();
-  
-        // @Model
         const weapon = injector.getInstance(Weapon);
         expect(weapon.wakizashi).toBeDefined();
         expect(weapon.wakizashi.fight).toBeDefined();
@@ -261,11 +224,6 @@ describe('Injector', () => {
         expect(Ninja.wakizashi.fight).toBeDefined();
   
         // @Service
-        injector.getInstance(Backpack);
-        expect(Backpack.wakizashi).toBeDefined();
-        expect(Backpack.wakizashi.fight).toBeDefined();
-  
-        // @Model
         injector.getInstance(Weapon);
         expect(Weapon.wakizashi).toBeDefined();
         expect(Weapon.wakizashi.fight).toBeDefined();
@@ -285,10 +243,6 @@ describe('Injector', () => {
         expect(ninja.fastifyInstance).toBeDefined();
   
         // @Service
-        const backpack = injector.getInstance(Backpack);
-        expect(backpack.fastifyInstance).toBeDefined();
-  
-        // @Model
         const weapon = injector.getInstance(Weapon);
         expect(weapon.fastifyInstance).toBeDefined();
       });
@@ -303,10 +257,6 @@ describe('Injector', () => {
         expect(ninja.fastifyDecorated).toBe('FastifyDecoratedValue');
   
         // @Service
-        const backpack = injector.getInstance(Backpack);
-        expect(backpack.fastifyDecorated).toBe('FastifyDecoratedValue');
-  
-        // @Model
         const weapon = injector.getInstance(Weapon);
         expect(weapon.fastifyDecorated).toBe('FastifyDecoratedValue');
       });
@@ -321,13 +271,8 @@ describe('Injector', () => {
         const ninja = injector.getInstance(Ninja);
         expect(ninja.tanto).toBeDefined();
         expect(ninja.tanto.use).toBeDefined();
-  
+
         // @Service
-        const backpack = injector.getInstance(Backpack);
-        expect(backpack.tanto).toBeDefined();
-        expect(backpack.tanto.use).toBeDefined();
-  
-        // @Model
         const weapon = injector.getInstance(Weapon);
         expect(weapon.tanto).toBeDefined();
         expect(weapon.tanto.use).toBeDefined();
@@ -345,11 +290,6 @@ describe('Injector', () => {
          expect(Ninja.tanto.use).toBeDefined();
    
          // @Service
-         injector.getInstance(Backpack);
-         expect(Backpack.tanto).toBeDefined();
-         expect(Backpack.tanto.use).toBeDefined();
-   
-         // @Model
          injector.getInstance(Weapon);
          expect(Weapon.tanto).toBeDefined();
          expect(Weapon.tanto.use).toBeDefined();
@@ -367,16 +307,89 @@ describe('Injector', () => {
         expect(ninja.nunchaku.brandish).toBeDefined();
 
         // @Service
-        const backpack = injector.getInstance(Backpack);
-        expect(backpack.nunchaku).toBeDefined();
-        expect(backpack.nunchaku.brandish).toBeDefined();
-
-        // @Model
         const weapon = injector.getInstance(Weapon);
         expect(weapon.nunchaku).toBeDefined();
         expect(weapon.nunchaku.brandish).toBeDefined();
       });
 
+    });
+
+  });
+
+  describe('Construct injected model', () => {
+
+    it('Should construct model from constructor parameter', () => {
+      // @Controller
+      const samurai = injector.getInstance(Samurai);
+      expect(samurai.backpackModel).toBeDefined();
+      expect(samurai.backpackModel).toBeInstanceOf(BaseModel);
+
+      // @EntityController
+      const ninja = injector.getInstance(Ninja);
+      expect(ninja.backpackModel).toBeDefined();
+      expect(ninja.backpackModel).toBeInstanceOf(BaseModel);
+
+      // @Service
+      const weapon = injector.getInstance(Weapon);
+      expect(weapon.backpackModel).toBeDefined();
+      expect(weapon.backpackModel).toBeInstanceOf(BaseModel);
+    });
+
+    it('Should construct model from class property', () => {
+      // @Controller
+      const samurai = injector.getInstance(Samurai);
+      expect(samurai.backpack).toBeDefined();
+      expect(samurai.backpack).toBeInstanceOf(BaseModel);
+
+      // @EntityController
+      const ninja = injector.getInstance(Ninja);
+      expect(ninja.backpack).toBeDefined();
+      expect(ninja.backpack).toBeInstanceOf(BaseModel);
+
+      // @Service
+      const weapon = injector.getInstance(Weapon);
+      expect(weapon.backpack).toBeDefined();
+      expect(weapon.backpack).toBeInstanceOf(BaseModel);
+    });
+
+    it('Should construct model from class static property', () => {
+      // @Controller
+      injector.getInstance(Samurai);
+      expect(Samurai.backpack).toBeDefined();
+      expect(Samurai.backpack).toBeInstanceOf(BaseModel);
+
+      // @EntityController
+      injector.getInstance(Ninja);
+      expect(Ninja.backpack).toBeDefined();
+      expect(Ninja.backpack).toBeInstanceOf(BaseModel);
+
+      // @Service
+      injector.getInstance(Weapon);
+      expect(Weapon.backpack).toBeDefined();
+      expect(Weapon.backpack).toBeInstanceOf(BaseModel);
+    });
+
+    it('Should construct different instances of same Entity', () => {
+      const samurai = injector.getInstance(Samurai);
+      expect(samurai.backpackModel).not.toBe(samurai.backpack);
+      expect(samurai.backpack).not.toBe(Samurai.backpack);
+
+      const ninja = injector.getInstance(Ninja);
+      expect(ninja.backpackModel).not.toBe(ninja.backpack);
+      expect(ninja.backpack).not.toBe(Ninja.backpack);
+
+      const weapon = injector.getInstance(Weapon);
+      expect(weapon.backpackModel).not.toBe(weapon.backpack);
+      expect(weapon.backpack).not.toBe(Weapon.backpack);
+
+      expect(samurai.backpackModel).not.toBe(ninja.backpackModel);
+      expect(ninja.backpackModel).not.toBe(weapon.backpackModel);
+
+      expect(samurai.backpack).not.toBe(ninja.backpack);
+      expect(ninja.backpack).not.toBe(weapon.backpack);
+
+      expect(Samurai.backpack).not.toBe(Ninja.backpack);
+      expect(Ninja.backpack).not.toBe(Weapon.backpack);
     });
 
   });

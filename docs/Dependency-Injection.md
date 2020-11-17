@@ -16,7 +16,7 @@ shared throw all the injects.
 
 ## Injectable classes
 
-You are able to create injectable classes decorated with `@Service` or `@Model` decorators to be used 
+You are able to create injectable classes decorated with `@Service` decorator to be used 
 inside your controllers or each other.
 
 Example of `PostService` which has a method to generate random string:
@@ -29,29 +29,6 @@ export default class PostService {
   
   public randomString(): string {
     return Math.random().toString(36).substring(7);
-  }
-
-} 
-```
-
-Example of `PostModel` which extends `BaseModel` and contains one more custom method to work with the database. 
-To see more details about models check the [Model](./Model.md) documentation.
-
-```ts
-import { Model } from '@fastify-resty/core';
-import { BaseModel } from '@fastify-resty/typeorm';
-import PostEntity from './post.entity.ts';
-
-@Model(PostEntity)
-export default class PostModel {
-
-  async getByName(name: string) {
-    const results = await this.find({ $where: { name } });
-
-    if (results.length > 0) {
-      return results[0];
-    }
-    return null;
   }
 
 } 
@@ -158,6 +135,28 @@ export default class PostController {
   postService: PostService;
 }
 ```
+
+## Inject model instances
+
+**Fastify Resty** core provides `@Model` decorator which is pretty similar to `@Inject` one, but 
+it would create and inject a new base model instance each time for the passed entity.
+
+```ts
+import { Service, Model, IBaseModel } from '@fastify-resty/core';
+import PostEntity from './post.entity.ts';
+
+@Service()
+export default class PostService {
+  @Model(PostEntity)
+  postModel: IBaseModel<PostEntity>;
+
+  getAllPosts() {
+    return this.postModel.find();
+  }
+}
+```
+
+To see more details about models check the [Model](./Model.md) documentation.
 
 ## Global injectable tokens
 

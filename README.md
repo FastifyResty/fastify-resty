@@ -41,27 +41,11 @@ If you find this useful, please don't forget to star :star:&nbsp; the repo, as t
 
 #### Core modules
 
-**Using Yarn:**
-
-```sh
-$ yarn add @fastify-resty/core fastify
-```
-
-**Using NPM:**
-
 ```sh
 $ npm install @fastify-resty/core fastify
 ```
 
-#### TypeORM connector:
-
-**Using Yarn:**
-
-```sh
-$ yarn add @fastify-resty/typeorm typeorm
-```
-
-**Using NPM:**
+#### TypeORM connector
 
 ```sh
 $ npm install @fastify-resty/typeorm typeorm
@@ -97,9 +81,7 @@ import { EntityController } from '@fastify-resty/core';
 import AuthorEntity from './author.entity';
 
 @EntityController(AuthorEntity, '/authors')
-class AuthorController {}
-
-export default AuthorController;
+export default class AuthorController {}
 ```
 
 ##### Bootstrap (app.ts):

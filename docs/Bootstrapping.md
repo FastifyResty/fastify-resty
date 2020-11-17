@@ -54,7 +54,7 @@ case, default and your configuration will be merged.
 ```ts
 app.register(bootstrap, {
   entry: path.resolve(__dirname, 'api'),
-  defauls: {
+  defaults: {
     id: '_id', // change the name of entities primary field
     pagination: false // turn of the pagination
   }

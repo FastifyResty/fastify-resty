@@ -53,24 +53,36 @@ const model = new BaseModel(Entity);
 ## Injectable usage
 
 To create specific API logic working with data we might need basic `BaseModel` methods to achieve that. 
-`BaseModel` couldn't be injected into somewhere because it's constructor class, but we are able to extend 
-it and decorate with `@Model` decorator.
+For model injection special `@Model` decorator provided that could be used on constructor parameters or 
+class properties. It allowed being used on any injectable class.
 
 ```ts
-import { Model } from '@fastify-resty/core';
-import { BaseModel } from '@fastify-resty/typeorm';
-
+import { Controller, Model, IBaseModel } from '@fastify-resty/core';
 import SampleEntity from './sample.entity.ts';
 
-@Model(SampleEntity)
-export default class SampleModel extends BaseModel {}
+@Controller()
+export default class SampleClass {
+
+  firstModel: IBaseModel<SampleEntity>;
+
+  constructor(@Model(SampleEntity) model) {
+    this.firstModel = model; // initialize model with injected constructor parameter
+  }
+
+  @Model(SampleEntity)
+  secondModel: IBaseModel<SampleEntity>; // initialize model with injected property
+}
 ```
 
-You are able to set a model-specific configuration to the first `@Model` decorator argument:
+As the first request argument `@Model` decorator accepts data entity. You are also able to pass a 
+model-specific configuration as the second options argument:
 
 ```ts
 @Model(SampleEntity, { id: '_id' })
 ```
+
+> Keep in mind that model injection will be creating a new model instance each time without a singleton 
+pattern which is used by `@Inject` decorator.
 
 ## Basic Methods
 
@@ -110,7 +122,7 @@ const count = await model.total({ id: { $nin: [10, 20, 30] } });
 console.log(count); // 10
 ```
 
-### Create
+- ### Create
 
 ```ts
 create(data: E | E[]): Promise<{ identifiers: Identifier[] }>

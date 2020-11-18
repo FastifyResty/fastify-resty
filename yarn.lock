@@ -512,16 +512,6 @@
     unique-filename "^1.1.1"
     which "^1.3.1"
 
-"@fastify-resty/core@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@fastify-resty/core/-/core-0.2.0.tgz#b2fea68e0761e30853875fc7d6f8cb589b7c61c0"
-  integrity sha512-pV/XKNfx/4zAltJqWurxVvM1Qn7QI0HiFhGG1i3I8qLWD7Hk3RYq+iCkyFm/h74KU9377ng1W4Xhv9GKUTwbOg==
-  dependencies:
-    fastify "^3.3.0"
-    http-errors "^1.8.0"
-    qs "^6.9.4"
-    reflect-metadata "^0.1.13"
-
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz#fd3db1d59ecf7cf121e80650bb86712f9b55eced"
@@ -3825,7 +3815,7 @@ fastify-warning@^0.2.0:
   resolved "https://registry.yarnpkg.com/fastify-warning/-/fastify-warning-0.2.0.tgz#e717776026a4493dc9a2befa44db6d17f618008f"
   integrity sha512-s1EQguBw/9qtc1p/WTY4eq9WMRIACkj+HTcOIK1in4MV5aFaQC9ZCIt0dJ7pr5bIf4lPpHvAtP2ywpTNgs7hqw==
 
-fastify@^3.3.0, fastify@^3.7.0, fastify@^3.8.0:
+fastify@^3.7.0, fastify@^3.8.0:
   version "3.8.0"
   resolved "https://registry.yarnpkg.com/fastify/-/fastify-3.8.0.tgz#455bfa70394322247050c330d0e52532b349662d"
   integrity sha512-w57/uvyQWzF/KSr9CbWQ5nfTqSSfYcmrems9Lc3VvtrAF7EsLbfZQBQZul6xwvE1uEfxA4nGdoUKqpU7xiv7cw==

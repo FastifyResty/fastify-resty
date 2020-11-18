@@ -512,6 +512,26 @@
     unique-filename "^1.1.1"
     which "^1.3.1"
 
+"@fastify-resty/core@^0.1.0", "@fastify-resty/core@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@fastify-resty/core/-/core-0.1.1.tgz#ba424fc3dfc7e4c3f3b3ea1ef715a5e9a3b42411"
+  integrity sha512-Bp4DHVh/hgRRSnrIwK8a+uhRzeAUAEbZlnl2zEvIGa3d2e2l7IYSO9t/S4SglKbz+CeufkpE4Q3PHiJ292X3fQ==
+  dependencies:
+    fastify "^3.3.0"
+    http-errors "^1.8.0"
+    qs "^6.9.4"
+    reflect-metadata "^0.1.13"
+
+"@fastify-resty/typeorm@^0.1.0":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@fastify-resty/typeorm/-/typeorm-0.1.1.tgz#8257df2f3ce0774252e86320660a7dfb62e8c658"
+  integrity sha512-Sq3F1NfJsy2HNOWS0qtSgKuE4ZQH07w3Y2xx2vG+J73EblyaR+aYUfdCFpvwAsCWYCQlNjXOnSjQWxvlyZD5Xw==
+  dependencies:
+    "@fastify-resty/core" "^0.1.1"
+    fastify "^3.7.0"
+    lodash "^4.17.20"
+    reflect-metadata "^0.1.13"
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz#fd3db1d59ecf7cf121e80650bb86712f9b55eced"
@@ -1659,10 +1679,10 @@
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha1-7ihweulOEdK4J7y+UnC86n8+ce4=
 
-"@types/lodash@^4.14.159":
-  version "4.14.164"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.164.tgz#52348bcf909ac7b4c1bcbeda5c23135176e5dfa0"
-  integrity sha512-fXCEmONnrtbYUc5014avwBeMdhHHO8YJCkOBflUL9EoJBSKZ1dei+VO74fA7JkTHZ1GvZack2TyIw5U+1lT8jg==
+"@types/lodash@^4.14.165":
+  version "4.14.165"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.165.tgz#74d55d947452e2de0742bad65270433b63a8c30f"
+  integrity sha512-tjSSOTHhI5mCHTy/OOXYIhi2Wt1qcbHmuXD1Ha7q70CgI/I71afO4XtLb/cVexki1oVYchpul/TOuu3Arcdxrg==
 
 "@types/minimatch@*":
   version "3.0.3"

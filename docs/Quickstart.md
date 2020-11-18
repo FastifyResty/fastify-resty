@@ -3,13 +3,13 @@
 ## What is it about?
 
 In this quick start guide, we will create a basic API using `Fastify Resty` framework. 
-The main goal here is to show how easily we can create all the request data schema mappings
+The main goal here is to show how easily we can create all the requested data schema mappings
 using the generated CRUD API interface.
 
 ## What is used?
 
-- [NODE.JS](https://nodejs.org/en/about/) (`v12.4.1`)
-- [Fastify](https://www.fastify.io/) (`v3`)
+- [NODE.JS](https://nodejs.org/en/about/)
+- [Fastify](https://www.fastify.io/)
 - [TypeORM](https://typeorm.io/#/)
 - [SQLite 3](https://www.sqlite.org/index.html)
 - [Yarn](https://yarnpkg.com/)
@@ -254,5 +254,5 @@ In this guide, we have created our API using Fastify Resty framework. There
 are more possibilities and available things that not covered here, but you are ready for 
 absorbing further documentation.
 
-The source code of this quickstart application is available on <LINK>, take a look if 
-you have missed something!
+The source code of this quickstart application is available on [Quickstart example](https://github.com/FastifyResty/fastify-resty/tree/main/examples/fastify-resty-quickstart), 
+take a look if you have missed something!

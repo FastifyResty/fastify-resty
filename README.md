@@ -1,20 +1,20 @@
 <p align="center">
-<img src="https://raw.githubusercontent.com/Fastify-Resty/fastify-resty/gh-images/logo/full-logo.png" width="650" height="auto"/>
+<img src="https://raw.githubusercontent.com/FastifyResty/fastify-resty/gh-images/logo/full-logo.png" width="650" height="auto"/>
 </p>
 
 <div align="center">
 
-![Build Workflow](https://github.com/Fastify-Resty/fastify-resty/workflows/Build%20Workflow/badge.svg?branch=main)
-[![codecov](https://codecov.io/gh/Fastify-Resty/fastify-resty/branch/main/graph/badge.svg?token=R11QLZFPCJ)](https://codecov.io/gh/Fastify-Resty/fastify-resty)
-[![Known Vulnerabilities](https://snyk.io/test/github/Fastify-Resty/fastify-resty/badge.svg)](https://snyk.io/test/github/Fastify-Resty/fastify-resty)
-[![devDependencies Status](https://david-dm.org/Fastify-resty/fastify-resty/dev-status.svg)](https://david-dm.org/Fastify-resty/fastify-resty?type=dev)
+![Build Workflow](https://github.com/FastifyResty/fastify-resty/workflows/Build%20Workflow/badge.svg?branch=main)
+[![codecov](https://codecov.io/gh/FastifyResty/fastify-resty/branch/main/graph/badge.svg?token=R11QLZFPCJ)](https://codecov.io/gh/FastifyResty/fastify-resty)
+[![Known Vulnerabilities](https://snyk.io/test/github/FastifyResty/fastify-resty/badge.svg)](https://snyk.io/test/github/FastifyResty/fastify-resty)
+[![Depfu](https://badges.depfu.com/badges/c43ccc83fdcc48e031489f54ef8f4194/overview.svg)](https://depfu.com/github/FastifyResty/fastify-resty?project_id=17745)
 
 </div>
 
 <div align="center">
 
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Fastify-Resty/fastify-resty/graphs/commit-activity)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/FastifyResty/fastify-resty/graphs/commit-activity)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
 </div>
@@ -39,7 +39,7 @@ If you find this useful, please don't forget to star :star:&nbsp; the repo, as t
 
 ## Install :pushpin:
 
-#### Core modules
+#### Core module
 
 ```sh
 $ npm install @fastify-resty/core fastify
@@ -138,14 +138,14 @@ main();
 
 ## Examples :microscope:
 
-- [Fastify Resty Quickstart](https://github.com/Fastify-Resty/fastify-resty/tree/main/examples/fastify-resty-quickstart)
-- [Fastify Resty Blog API](https://github.com/Fastify-Resty/fastify-resty/tree/main/examples/fastify-resty-blog)
+- [Fastify Resty Quickstart](https://github.com/FastifyResty/fastify-resty/tree/main/examples/fastify-resty-quickstart)
+- [Fastify Resty Blog API](https://github.com/FastifyResty/fastify-resty/tree/main/examples/fastify-resty-blog)
 
 ## Issues and contributions :memo:
 
 Contributors are welcome, please fork and send pull requests! If you find a bug or have any ideas on how to improve this project please submit an issue.
 
 ## License
-[MIT License](https://github.com/Fastify-Resty/fastify-resty/blob/main/LICENSE.md)
+[MIT License](https://github.com/FastifyResty/fastify-resty/blob/main/LICENSE.md)
 
 Icons made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>

@@ -66,11 +66,11 @@ export default class SampleClass {
   firstModel: IBaseModel<SampleEntity>;
 
   constructor(@Model(SampleEntity) model) {
-    this.firstModel = model; // initialize model with injected constructor parameter
+    this.firstModel = model; // Case 1: initialize model with injected constructor parameter
   }
 
   @Model(SampleEntity)
-  secondModel: IBaseModel<SampleEntity>; // initialize model with injected property
+  secondModel: IBaseModel<SampleEntity>; // Case 2: initialize model with injected property
 }
 ```
 

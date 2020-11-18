@@ -23,4 +23,4 @@ The structure could be different depends on the goal you want to achieve, but in
 
 We highly recommend adding file type prefixes to resource files which help to identify what they actually contain and keep the autoload process simple.
 
-See the implementation of this application structure on our example [Fastify Resty Blog](https://github.com/Fastify-Resty/fastify-resty/tree/main/examples/fastify-resty-blog) API.
+See the implementation of this application structure on our example [Fastify Resty Blog](https://github.com/FastifyResty/fastify-resty/tree/main/examples/fastify-resty-blog) API.

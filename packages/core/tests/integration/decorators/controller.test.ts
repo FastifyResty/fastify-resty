@@ -23,7 +23,10 @@ describe('@Controller decorator', () => {
       await server.listen(4000);
 
       // assert
-      expect(server.printRoutes()).toMatch(/^└── \/\n\s{4}└── example \(GET\)\n\s{8}└── \/ \(GET\)\n$/);
+      expect(server.printRoutes()).toBe(
+        '└── /example (GET)\n' +
+        '    └── / (GET)\n'
+      );
     });
 
     test('Should register controller without "route" option', async () => {
@@ -35,7 +38,7 @@ describe('@Controller decorator', () => {
       await server.listen(4000);
 
       // assert
-      expect(server.printRoutes()).toMatch(/^└── \/\n\s{4}└── my-route \(GET\)\n$/);
+      expect(server.printRoutes()).toBe('└── /my-route (GET)\n');
     });
 
   });

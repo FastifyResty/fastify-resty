@@ -14,21 +14,21 @@ As the result we will have the following API routes structure:
 
 ```
 └── /
-    ├── authors (DELETE|GET|PATCH|POST|PUT)
-    │   └── / (DELETE|GET|PATCH|POST|PUT)
-    │       └── :id (DELETE)
-    │           :id (GET)
+    ├── authors (GET|POST|PATCH|PUT|DELETE)
+    │   └── / (GET|POST|PATCH|PUT|DELETE)
+    │       └── :id (GET)
     │           :id (PATCH)
     │           :id (PUT)
+    │           :id (DELETE)
     ├── generate/
     │   ├── author (GET)
     │   └── post (GET)
-    └── posts (DELETE|GET|PATCH|POST|PUT)
-        └── / (DELETE|GET|PATCH|POST|PUT)
-            ├── :id (DELETE)
-                :id (GET)
+    └── posts (GET|POST|PATCH|PUT|DELETE)
+        └── / (GET|POST|PATCH|PUT|DELETE)
+            ├── :id (GET)
                 :id (PATCH)
                 :id (PUT)
+                :id (DELETE)
             │   └── /author (GET)
             └── random (GET)
 ```

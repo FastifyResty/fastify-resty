@@ -12,6 +12,8 @@ export default class Injector {
     let currentInstance = this.injectableMap.get(constructor);
     if (currentInstance) return currentInstance;
 
+    const fastifyInstance = this.injectableMap.get(FastifyToken);
+
     if (typeof constructor !== 'function') { // TODO check if constructable
       // service token
       if (serviceTokens.has(constructor)) {
@@ -25,19 +27,31 @@ export default class Injector {
       }
 
       // fastify decorated value
-      const fastifyInstance = this.injectableMap.get(FastifyToken);
       return fastifyInstance[constructor];
     }
 
     const paramTypes: Constructable[] = Reflect.getMetadata('design:paramtypes', constructor) || [];
     const injectedParams: Map<number, IInjectToken> = Reflect.getMetadata('fastify-resty:inject:constructor', constructor) || new Map();
+    const injectedModelParams: Map<number, IInjectToken> = Reflect.getMetadata('fastify-resty:inject:constructor:model', constructor) || new Map();
 
-    const constructorParams = paramTypes.map((param, index) => this.resolve(injectedParams.get(index) || param));
+    const constructorParams = paramTypes.map((param, index) => {
+      if (injectedModelParams.has(index)) {
+        const { Entity, options } = injectedModelParams.get(index) as any;
+        return new fastifyInstance.BaseModel(Entity, options);
+      }
+      return this.resolve(injectedParams.get(index) || param)
+    });
 
     // Inject static properties
     const injectStaticMap: Map<string, IInjectToken> = Reflect.getMetadata('fastify-resty:inject:properties', constructor) || new Map();
     for (const [property, token] of injectStaticMap.entries()) {
       constructor[property] = this.resolve(token);
+    }
+
+    // Inject static model properties
+    const injectModelStaticMap: Map<string, any> = Reflect.getMetadata('fastify-resty:inject:properties:model', constructor) || new Map();
+    for (const [property, { Entity, options }] of injectModelStaticMap.entries()) {
+      constructor[property] = new fastifyInstance.BaseModel(Entity, options);
     }
   
     currentInstance = Reflect.construct(constructor, constructorParams);
@@ -46,6 +60,12 @@ export default class Injector {
     const injectPropsMap: Map<string, IInjectToken> = Reflect.getMetadata('fastify-resty:inject:properties', currentInstance) || new Map();
     for (const [property, token] of injectPropsMap.entries()) {
       currentInstance[property] = this.resolve(token);
+    }
+
+    // Inject instance model properties
+    const injectModelPropsMap: Map<string, any> = Reflect.getMetadata('fastify-resty:inject:properties:model', currentInstance) || new Map();
+    for (const [property, { Entity, options }] of injectModelPropsMap.entries()) {
+      currentInstance[property] = new fastifyInstance.BaseModel(Entity, options);
     }
 
     this.injectableMap.set(constructor, currentInstance);

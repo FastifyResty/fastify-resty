@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
 		"module": "commonjs",
-		"target": "ES6",
     "emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"resolveJsonModule": true,

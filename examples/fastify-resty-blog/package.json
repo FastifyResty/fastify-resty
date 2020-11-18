@@ -2,7 +2,7 @@
   "name": "fastify-resty-blog",
   "version": "0.1.0",
   "private": true,
-  "description": "Fastify Restry blog API example",
+  "description": "Fastify Resty blog API example",
   "keywords": [
     "fastify",
     "example",
@@ -19,10 +19,10 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
-    "@fastify-resty/core": "^0.1.0",
-    "@fastify-resty/typeorm": "^0.1.0",
+    "@fastify-resty/core": "*",
+    "@fastify-resty/typeorm": "*",
     "faker": "^5.1.0",
-    "fastify": "^3.3.0",
+    "fastify": "^3.8.0",
     "pg": "^8.3.3",
     "typeorm": "^0.2.26"
   },

@@ -2,18 +2,19 @@
   "name": "fastify-resty-quickstart",
   "private": true,
   "version": "0.1.0",
-  "description": "Fastify Resty quickstart api application",
+  "description": "Fastify Resty quickstart API application",
   "author": "Demidovich Daniil <demidovich.daniil@gmail.com>",
   "license": "MIT",
   "main": "src/app.ts",
   "scripts": {
     "build": "tsc",
-    "start": "ts-node src/app.ts",
+    "dev": "ts-node src/app.ts",
+    "start": "node dist/app.js",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
-    "@fastify-resty/core": "^0.1.0",
-    "@fastify-resty/typeorm": "^0.1.0",
+    "@fastify-resty/core": "*",
+    "@fastify-resty/typeorm": "*",
     "fastify": "^3.7.0",
     "sqlite3": "^5.0.0",
     "typeorm": "^0.2.28"

@@ -1,3 +1,4 @@
+import * as path from 'path';
 import fastify from 'fastify';
 import { createConnection } from 'typeorm';
 import { bootstrap } from '@fastify-resty/core';
@@ -14,7 +15,7 @@ async function main() {
     type: 'sqlite', // specify sqlite type
     synchronize: true, // ask TypeORM to create db tables, if not exists
     database: './testDB.sql', // path to store sql db source
-    entities: ['src/*.entity.ts'] // pattern to autoload entity files
+    entities: [path.resolve(__dirname, '*.entity{.ts,.js}')] // pattern to autoload entity files
   });
 
   // 3. Register TypeORM module 

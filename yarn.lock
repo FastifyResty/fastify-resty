@@ -512,6 +512,26 @@
     unique-filename "^1.1.1"
     which "^1.3.1"
 
+"@fastify-resty/core@^0.1.0", "@fastify-resty/core@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@fastify-resty/core/-/core-0.1.1.tgz#ba424fc3dfc7e4c3f3b3ea1ef715a5e9a3b42411"
+  integrity sha512-Bp4DHVh/hgRRSnrIwK8a+uhRzeAUAEbZlnl2zEvIGa3d2e2l7IYSO9t/S4SglKbz+CeufkpE4Q3PHiJ292X3fQ==
+  dependencies:
+    fastify "^3.3.0"
+    http-errors "^1.8.0"
+    qs "^6.9.4"
+    reflect-metadata "^0.1.13"
+
+"@fastify-resty/typeorm@^0.1.0":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@fastify-resty/typeorm/-/typeorm-0.1.1.tgz#8257df2f3ce0774252e86320660a7dfb62e8c658"
+  integrity sha512-Sq3F1NfJsy2HNOWS0qtSgKuE4ZQH07w3Y2xx2vG+J73EblyaR+aYUfdCFpvwAsCWYCQlNjXOnSjQWxvlyZD5Xw==
+  dependencies:
+    "@fastify-resty/core" "^0.1.1"
+    fastify "^3.7.0"
+    lodash "^4.17.20"
+    reflect-metadata "^0.1.13"
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz#fd3db1d59ecf7cf121e80650bb86712f9b55eced"
@@ -8423,10 +8443,10 @@ superagent@6.1.0:
     readable-stream "^3.6.0"
     semver "^7.3.2"
 
-supertest@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/supertest/-/supertest-6.0.0.tgz#8371509fadd616217b42ff3d3be7cc0267baea1b"
-  integrity sha512-7+Skilm7kvUZIaKfALPgjS3i8zYs11zvEudAeYdqJZL3f+SGGFV4qQkkTVkYcs+zbE6de47HP8o0a0hy1BFlMA==
+supertest@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/supertest/-/supertest-6.0.1.tgz#f6b54370de85c45d6557192c8d7df604ca2c9e18"
+  integrity sha512-8yDNdm+bbAN/jeDdXsRipbq9qMpVF7wRsbwLgsANHqdjPsCoecmlTuqEcLQMGpmojFBhxayZ0ckXmLXYq7e+0g==
   dependencies:
     methods "1.1.2"
     superagent "6.1.0"

@@ -16,7 +16,7 @@
     "@fastify-resty/core": "*",
     "@fastify-resty/typeorm": "*",
     "fastify": "^3.7.0",
-    "sqlite3": "^5.0.0",
+    "sqlite3": "^5.0.6",
     "typeorm": "^0.2.28"
   },
   "devDependencies": {

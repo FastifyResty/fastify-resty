@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "http-errors": "^1.8.0",
-    "qs": "^6.9.4",
+    "qs": "^6.9.7",
     "reflect-metadata": "^0.1.13"
   },
   "peerDependencies": {

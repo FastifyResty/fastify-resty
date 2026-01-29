@@ -34,7 +34,7 @@
     "@types/qs": "^6.9.4",
     "@typescript-eslint/eslint-plugin": "^4.6.0",
     "@typescript-eslint/parser": "^4.6.0",
-    "eslint": "^7.5.0",
+    "eslint": "^9.39.2",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.22.0",
     "fastify": "^3.8.0",
